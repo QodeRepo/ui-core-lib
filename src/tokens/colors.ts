@@ -17,7 +17,7 @@ export const colorTokens = {
     dark: '#1565c0',
     contrastText: '#ffffff',
   },
-  
+
   // Secondary Colors
   secondary: {
     50: '#f3e5f5',
@@ -35,7 +35,7 @@ export const colorTokens = {
     dark: '#7b1fa2',
     contrastText: '#ffffff',
   },
-  
+
   // Success Colors
   success: {
     50: '#e8f5e9',
@@ -53,7 +53,7 @@ export const colorTokens = {
     dark: '#388e3c',
     contrastText: '#ffffff',
   },
-  
+
   // Error Colors
   error: {
     50: '#ffebee',
@@ -71,7 +71,7 @@ export const colorTokens = {
     dark: '#c62828',
     contrastText: '#ffffff',
   },
-  
+
   // Warning Colors
   warning: {
     50: '#fff3e0',
@@ -89,7 +89,7 @@ export const colorTokens = {
     dark: '#e65100',
     contrastText: '#ffffff',
   },
-  
+
   // Info Colors
   info: {
     50: '#e3f2fd',
@@ -107,7 +107,7 @@ export const colorTokens = {
     dark: '#01579b',
     contrastText: '#ffffff',
   },
-  
+
   // Neutral/Grey Colors
   grey: {
     50: '#fafafa',
@@ -125,13 +125,13 @@ export const colorTokens = {
     A400: '#bdbdbd',
     A700: '#616161',
   },
-  
+
   // Common Colors
   common: {
     black: '#000000',
     white: '#ffffff',
   },
-  
+
   // Background Colors
   background: {
     light: {
@@ -145,7 +145,7 @@ export const colorTokens = {
       paperElevated: '#2c2c2c',
     },
   },
-  
+
   // Text Colors
   text: {
     light: {
@@ -161,13 +161,13 @@ export const colorTokens = {
       hint: 'rgba(255, 255, 255, 0.5)',
     },
   },
-  
+
   // Divider Colors
   divider: {
     light: 'rgba(0, 0, 0, 0.12)',
     dark: 'rgba(255, 255, 255, 0.12)',
   },
-  
+
   // Action Colors
   action: {
     light: {

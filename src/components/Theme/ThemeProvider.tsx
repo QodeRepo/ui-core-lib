@@ -2,16 +2,17 @@ import { createContext, useContext, useState, useMemo } from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
 import type { ReactNode } from 'react';
-import { 
-  colorTokens, 
-  spacingTokens, 
-  typographyTokens, 
-  shadowTokens, 
+import {
+  colorTokens,
+  spacingTokens,
+  typographyTokens,
+  shadowTokens,
   borderTokens,
   transitionTokens,
   breakpointTokens,
-  zIndexTokens 
+  zIndexTokens
 } from '../../tokens';
+import type { ColorTokens } from '../../tokens/colors';
 
 type ThemeMode = 'light' | 'dark';
 
@@ -22,66 +23,86 @@ type ThemeContextType = {
 
 export const ThemeContext = createContext<ThemeContextType>({
   mode: 'light',
-  toggleTheme: () => {},
+  toggleTheme: () => { },
 });
 
 export const useThemeMode = () => useContext(ThemeContext);
 
-type MyThemeProviderProps = {
-  children: ReactNode;
+// Recursive partial to allow partial overrides of Nested color structures
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 
-const MyThemeProvider = ({ children }: MyThemeProviderProps) => {
+export type MyThemeProviderProps = {
+  children: ReactNode;
+  themeOverrides?: DeepPartial<ColorTokens>;
+};
+
+const MyThemeProvider = ({ children, themeOverrides }: MyThemeProviderProps) => {
   const [mode, setMode] = useState<ThemeMode>('light');
 
   const toggleTheme = () => setMode((prev) => (prev === 'light' ? 'dark' : 'light'));
 
   const theme = useMemo(
-    () =>
-      createTheme({
+    () => {
+      // Merge overriding colors if provided
+      const primaryColors = { ...colorTokens.primary, ...themeOverrides?.primary };
+      const secondaryColors = { ...colorTokens.secondary, ...themeOverrides?.secondary };
+      const successColors = { ...colorTokens.success, ...themeOverrides?.success };
+      const errorColors = { ...colorTokens.error, ...themeOverrides?.error };
+      const warningColors = { ...colorTokens.warning, ...themeOverrides?.warning };
+      const infoColors = { ...colorTokens.info, ...themeOverrides?.info };
+
+      return createTheme({
         palette: {
           mode,
           primary: {
-            main: colorTokens.primary.main,
-            light: colorTokens.primary.light,
-            dark: colorTokens.primary.dark,
-            contrastText: colorTokens.primary.contrastText,
+            main: primaryColors.main,
+            light: primaryColors.light,
+            dark: primaryColors.dark,
+            contrastText: primaryColors.contrastText,
           },
           secondary: {
-            main: colorTokens.secondary.main,
-            light: colorTokens.secondary.light,
-            dark: colorTokens.secondary.dark,
-            contrastText: colorTokens.secondary.contrastText,
+            main: secondaryColors.main,
+            light: secondaryColors.light,
+            dark: secondaryColors.dark,
+            contrastText: secondaryColors.contrastText,
           },
           success: {
-            main: colorTokens.success.main,
-            light: colorTokens.success.light,
-            dark: colorTokens.success.dark,
-            contrastText: colorTokens.success.contrastText,
+            main: successColors.main,
+            light: successColors.light,
+            dark: successColors.dark,
+            contrastText: successColors.contrastText,
           },
           error: {
-            main: colorTokens.error.main,
-            light: colorTokens.error.light,
-            dark: colorTokens.error.dark,
-            contrastText: colorTokens.error.contrastText,
+            main: errorColors.main,
+            light: errorColors.light,
+            dark: errorColors.dark,
+            contrastText: errorColors.contrastText,
           },
           warning: {
-            main: colorTokens.warning.main,
-            light: colorTokens.warning.light,
-            dark: colorTokens.warning.dark,
-            contrastText: colorTokens.warning.contrastText,
+            main: warningColors.main,
+            light: warningColors.light,
+            dark: warningColors.dark,
+            contrastText: warningColors.contrastText,
           },
           info: {
-            main: colorTokens.info.main,
-            light: colorTokens.info.light,
-            dark: colorTokens.info.dark,
-            contrastText: colorTokens.info.contrastText,
+            main: infoColors.main,
+            light: infoColors.light,
+            dark: infoColors.dark,
+            contrastText: infoColors.contrastText,
           },
           grey: colorTokens.grey,
-          text: mode === 'light' ? colorTokens.text.light : colorTokens.text.dark,
-          background: mode === 'light' ? colorTokens.background.light : colorTokens.background.dark,
-          divider: mode === 'light' ? colorTokens.divider.light : colorTokens.divider.dark,
-          action: mode === 'light' ? colorTokens.action.light : colorTokens.action.dark,
+          text: mode === 'light'
+            ? { ...colorTokens.text.light, ...themeOverrides?.text?.light }
+            : { ...colorTokens.text.dark, ...themeOverrides?.text?.dark },
+          background: mode === 'light'
+            ? { ...colorTokens.background.light, ...themeOverrides?.background?.light }
+            : { ...colorTokens.background.dark, ...themeOverrides?.background?.dark },
+          divider: mode === 'light'
+            ? themeOverrides?.divider?.light || colorTokens.divider.light
+            : themeOverrides?.divider?.dark || colorTokens.divider.dark,
+          action: mode === 'light' ? colorTokens.action.light : colorTokens.action.dark, // Keep complex actions default for now
         },
         typography: {
           fontFamily: typographyTokens.fontFamily.primary,
@@ -219,8 +240,9 @@ const MyThemeProvider = ({ children }: MyThemeProviderProps) => {
             },
           },
         },
-      }),
-    [mode]
+      });
+    },
+    [mode, themeOverrides]
   );
 
   return (
