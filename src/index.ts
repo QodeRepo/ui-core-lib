@@ -15,6 +15,7 @@ export { default as Skeleton } from './components/Skeleton';
 export { default as Snackbar } from './components/Snackbar';
 export { default as Toggle } from './components/Toggle';
 export { default as TokenShowcase } from './components/TokenShowcase';
+export { default as Tabs } from './components/Tabs';
 export { default as Typography } from './components/Typography';
 
 export { default as Box } from './components/Box';

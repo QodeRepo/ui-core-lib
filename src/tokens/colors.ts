@@ -197,6 +197,26 @@ export const colorTokens = {
       activatedOpacity: 0.24,
     },
   },
+  tabs: {
+    light: {
+      activeText: 'rgba(0, 0, 0, 0.87)',
+      indicator: '#1976d2',
+    },
+    dark: {
+      activeText: '#E3E2E7',
+      indicator: '#E1DFFF', 
+    },
+  },
+  input: {
+  light: {
+    background: "#FFFFFF",
+    placeholder: "#46464F",
+  },
+  dark: {
+    background: "#FFFFFF",
+    placeholder: "#46464F",
+  },
+},
 };
 
 export type ColorTokens = typeof colorTokens;

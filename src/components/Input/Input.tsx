@@ -1,12 +1,23 @@
-import { TextField, InputAdornment } from '@mui/material';
-import type { TextFieldProps } from '@mui/material';
-import type { ReactNode } from 'react';
+import { TextField, InputAdornment, Typography, Box } from "@mui/material";
+import { useTheme } from "@mui/material/styles";
+import type { TextFieldProps } from "@mui/material";
+import type { ReactNode } from "react";
 
 export type MyInputProps = {
   label: string;
   value?: string;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  type?: 'text' | 'email' | 'password' | 'number' | 'tel' | 'url' | 'search' | 'date' | 'time' | 'datetime-local';
+  type?:
+    | "text"
+    | "email"
+    | "password"
+    | "number"
+    | "tel"
+    | "url"
+    | "search"
+    | "date"
+    | "time"
+    | "datetime-local";
   placeholder?: string;
   helperText?: string;
   error?: boolean;
@@ -16,17 +27,18 @@ export type MyInputProps = {
   multiline?: boolean;
   rows?: number;
   maxRows?: number;
-  variant?: 'outlined' | 'filled' | 'standard';
-  size?: 'small' | 'medium';
+  variant?: "outlined" | "filled" | "standard";
+  size?: "small" | "medium";
   autoFocus?: boolean;
   autoComplete?: string;
-  inputProps?: TextFieldProps['inputProps'];
-  InputProps?: TextFieldProps['InputProps'];
+  inputProps?: TextFieldProps["inputProps"];
+  InputProps?: TextFieldProps["InputProps"];
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
-} & Omit<TextFieldProps, 'label' | 'startAdornment' | 'endAdornment'>;
+  labelPlacement?: "inside" | "outside";
+} & Omit<TextFieldProps, "label" | "startAdornment" | "endAdornment">;
 
-const MyInput = ({ 
+const MyInput = ({
   label,
   value,
   onChange,
@@ -48,17 +60,29 @@ const MyInput = ({
   InputProps,
   startAdornment,
   endAdornment,
-  ...props 
+  labelPlacement = "outside",
+  sx,
+  ...props
 }: MyInputProps) => {
+  const theme = useTheme();
+
   const enhancedInputProps = {
     ...InputProps,
-    ...(startAdornment && { startAdornment: <InputAdornment position="start">{startAdornment}</InputAdornment> }),
-    ...(endAdornment && { endAdornment: <InputAdornment position="end">{endAdornment}</InputAdornment> }),
+    ...(startAdornment && {
+      startAdornment: (
+        <InputAdornment position="start">{startAdornment}</InputAdornment>
+      ),
+    }),
+    ...(endAdornment && {
+      endAdornment: (
+        <InputAdornment position="end">{endAdornment}</InputAdornment>
+      ),
+    }),
   };
 
-  return (
-    <TextField 
-      label={label}
+  const textField = (
+    <TextField
+      label={labelPlacement === "inside" ? label : undefined}
       value={value}
       onChange={onChange}
       type={type}
@@ -77,9 +101,36 @@ const MyInput = ({
       autoComplete={autoComplete}
       inputProps={inputProps}
       InputProps={enhancedInputProps}
-      {...props} 
+      sx={{
+        "& .MuiInputBase-root": {
+          backgroundColor: theme.palette.input.background,
+        },
+        "& .MuiInputBase-input::placeholder": {
+          color: theme.palette.input.placeholder,
+          opacity: 1,
+        },
+        
+        ...sx,
+      }}
+      {...props}
     />
   );
+
+  if (labelPlacement === "outside") {
+    return (
+      <Box
+        display="flex"
+        flexDirection="column"
+        gap={0.75}
+        width={fullWidth ? "100%" : undefined}
+      >
+        <Typography sx={{ mb: 0.6,color: theme.palette.text.secondary }}>{label}</Typography>
+        {textField}
+      </Box>
+    );
+  }
+
+  return textField;
 };
 
 export default MyInput;
