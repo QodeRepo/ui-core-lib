@@ -42,7 +42,7 @@ const MyThemeProvider = ({
   children,
   themeOverrides,
 }: MyThemeProviderProps) => {
-  const [mode, setMode] = useState<ThemeMode>("light");
+  const [mode, setMode] = useState<ThemeMode>("dark");
 
   const toggleTheme = () =>
     setMode((prev) => (prev === "light" ? "dark" : "light"));
@@ -108,6 +108,7 @@ const MyThemeProvider = ({
           contrastText: infoColors.contrastText,
         },
         grey: colorTokens.grey,
+        indigo: colorTokens.indigo,
         text:
           mode === "light"
             ? { ...colorTokens.text.light, ...themeOverrides?.text?.light }
@@ -147,6 +148,16 @@ const MyThemeProvider = ({
             : {
                 ...colorTokens.input.dark,
                 ...themeOverrides?.input?.dark,
+              },
+        button:
+          mode === "light"
+            ? {
+                ...colorTokens.button.light,
+                ...themeOverrides?.button?.light,
+              }
+            : {
+                ...colorTokens.button.dark,
+                ...themeOverrides?.button?.dark,
               },
       },
       typography: {

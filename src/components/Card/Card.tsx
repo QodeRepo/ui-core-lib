@@ -4,6 +4,7 @@ import {
   CardMedia,
   CardActions,
   Button,
+  Box,
 } from "@mui/material";
 import type { SxProps, Theme } from "@mui/material";
 import MyTypography from "../Typography/Typography";
@@ -43,11 +44,7 @@ const MyCard = ({
 }: MyCardProps) => {
   return (
     <Card elevation={elevation} sx={sx}>
-      {header && (
-        <div style={{ padding: "16px 16px 0 16px", marginBottom: "12px" }}>
-          {header}
-        </div>
-      )}
+      {header && <Box sx={{ pt: 2, px: 2, mb: 1.5 }}>{header}</Box>}
       {image && (
         <CardMedia
           component="img"
@@ -63,7 +60,7 @@ const MyCard = ({
             text={subtitle}
             variant="body2"
             color="text.secondary"
-            sx={{ mb: 2.8 , mt: 1}}
+            sx={{ mb: 3, mt: 1 }}
           />
         )}
         {description && <MyTypography text={description} variant="body2" />}

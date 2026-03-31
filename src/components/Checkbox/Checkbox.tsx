@@ -1,13 +1,13 @@
-import { FormControlLabel, Checkbox } from '@mui/material';
-import type { CheckboxProps, FormControlLabelProps } from '@mui/material';
+import { FormControlLabel, Checkbox } from "@mui/material";
+import type { CheckboxProps, FormControlLabelProps } from "@mui/material";
 
 export type MyCheckboxProps = {
   label: string;
   checked: boolean;
   onChange: (checked: boolean) => void;
-  labelPlacement?: 'end' | 'start' | 'top' | 'bottom';
-  formControlLabelProps?: Omit<FormControlLabelProps, 'control' | 'label'>;
-} & Omit<CheckboxProps, 'onChange' | 'checked'>;
+  labelPlacement?: "end" | "start" | "top" | "bottom";
+  formControlLabelProps?: Omit<FormControlLabelProps, "control" | "label">;
+} & Omit<CheckboxProps, "onChange" | "checked">;
 
 const MyCheckbox = ({
   label,
@@ -28,6 +28,11 @@ const MyCheckbox = ({
       }
       label={label}
       labelPlacement={labelPlacement}
+      sx={{
+        "& .MuiFormControlLabel-label": {
+          color: "text.secondary",
+        },
+      }}
       {...formControlLabelProps}
     />
   );

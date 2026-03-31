@@ -109,7 +109,7 @@ const MyInput = ({
           color: theme.palette.input.placeholder,
           opacity: 1,
         },
-        
+
         ...sx,
       }}
       {...props}
@@ -124,7 +124,9 @@ const MyInput = ({
         gap={0.75}
         width={fullWidth ? "100%" : undefined}
       >
-        <Typography sx={{ mb: 0.6,color: theme.palette.text.secondary }}>{label}</Typography>
+        <Typography sx={{ color: theme.palette.text.secondary }}>
+          {label}
+        </Typography>
         {textField}
       </Box>
     );
