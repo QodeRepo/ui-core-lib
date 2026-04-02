@@ -31,7 +31,7 @@ Make sure you have the following installed:
 ```bash
 # Clone the repository
 git clone https://github.com/QodeRepo/ui-core-lib.git
-cd my-design-system
+cd ui-core-lib
 
 # Install dependencies
 npm install

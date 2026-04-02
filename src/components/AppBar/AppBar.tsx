@@ -2,8 +2,8 @@ import * as React from "react";
 import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
+import MyButton from "../Button";
 
 export interface AppBarProps {
   logo?: React.ReactNode;
@@ -58,13 +58,13 @@ function MyAppBar({
           }}
         >
           {navItems.map((item) => (
-            <Button
+            <MyButton
               key={item.label}
+              label={item.label}
               onClick={item.onClick}
+              variant="text"
               sx={{ color: "text.secondary" }}
-            >
-              {item.label}
-            </Button>
+            />
           ))}
         </Box>
 
@@ -77,25 +77,21 @@ function MyAppBar({
             alignItems: "center",
           }}
         >
-          <Button
+          <MyButton
+            label={loginLabel}
             onClick={onLoginClick}
+            variant="text"
             sx={(theme) => ({
               color: theme.palette.indigo[200],
             })}
-          >
-            {loginLabel}
-          </Button>
+          />
 
-          <Button
+          <MyButton
+            label={signupLabel}
             variant="contained"
             onClick={onSignupClick}
-            sx={(theme) => ({
-              backgroundColor: theme.palette.button.primary.background,
-              color: theme.palette.button.primary.text,
-            })}
-          >
-            {signupLabel}
-          </Button>
+            color="primary"
+          />
         </Box>
       </Toolbar>
     </AppBar>
