@@ -30,7 +30,7 @@ Make sure you have the following installed:
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
+git clone https://github.com/QodeRepo/ui-core-lib.git
 cd my-design-system
 
 # Install dependencies

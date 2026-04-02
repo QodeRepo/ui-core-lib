@@ -1,14 +1,27 @@
-import "@mui/material/styles";
-
 declare module "@mui/material/styles" {
+  interface TypeBackground {
+    paperElevated: string;
+    section: string;
+    surface: string;
+    muted: string;
+  }
+
   interface Palette {
     tabs: {
       activeText: string;
       indicator: string;
     };
     input: {
-      background: string;
-      placeholder: string;
+      primary: {
+        background: string;
+        placeholder: string;
+        text: string;
+      };
+      secondary: {
+        background: string;
+        text: string;
+        placeholder: string;
+      };
     };
     button: {
       primary: {
@@ -36,8 +49,16 @@ declare module "@mui/material/styles" {
       indicator?: string;
     };
     input?: {
-      background?: string;
-      placeholder?: string;
+      primary?: {
+        background?: string;
+        placeholder?: string;
+        text?: string;
+      };
+      secondary?: {
+        background?: string;
+        text?: string;
+        placeholder?: string;
+      };
     };
     button?: {
       primary?: {
@@ -59,3 +80,5 @@ declare module "@mui/material/styles" {
     };
   }
 }
+
+export {};

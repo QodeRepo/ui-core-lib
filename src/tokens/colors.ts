@@ -152,9 +152,9 @@ export const colorTokens = {
       muted: "#f5f5f5",
     },
     dark: {
-      default: "#121212",
+      default: "#000",
       paper: "#1e1e1e",
-      paperElevated: "#2c2c2c",
+      paperElevated: "#121319",
       section: "#1A1B20",
       surface: "#292A2E",
       muted: "#090b12",
@@ -224,12 +224,28 @@ export const colorTokens = {
   },
   input: {
     light: {
-      background: "#FFFFFF",
-      placeholder: "#46464F",
+      primary: {
+        background: "#FFFFFF",
+        placeholder: "#46464F",
+        text: "#46464F",
+      },
+      secondary: {
+        background: "#FFFFFF",
+        text: "rgba(0, 0, 0, 0.8)",
+        placeholder: "rgba(0, 0, 0, 0.45)",
+      },
     },
     dark: {
-      background: "#FFFFFF",
-      placeholder: "#46464F",
+      primary: {
+        background: "#FFFFFF",
+        placeholder: "#46464F",
+        text: "#46464F",
+      },
+      secondary: {
+        background: "rgba(255, 255, 255, 0.08)",
+        text: "rgba(255, 255, 255, 0.8)",
+        placeholder: "rgba(255, 255, 255, 0.45)",
+      },
     },
   },
   button: {

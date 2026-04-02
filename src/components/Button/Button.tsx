@@ -1,8 +1,6 @@
 import { Button as MuiButton, CircularProgress } from '@mui/material';
 import type { ButtonProps, SxProps, Theme } from '@mui/material';
-import type { SystemStyleObject } from '@mui/system';
 import type { ReactNode } from 'react';
-import { colorTokens } from '../../tokens/colors';
 
 export type MyButtonProps = {
   label: string;
@@ -20,44 +18,6 @@ export type MyButtonProps = {
   disableElevation?: boolean;
   disableRipple?: boolean;
 } & Omit<ButtonProps, 'children'>;
-
-const customColorStyles = {
-  primary: {
-    light: {
-      backgroundColor: colorTokens.button.light.primary.background,
-      color: colorTokens.button.light.primary.text,
-    },
-    dark: {
-      backgroundColor: colorTokens.button.dark.primary.background,
-      color: colorTokens.button.dark.primary.text,
-    },
-  },
-  secondary: {
-    light: {
-      backgroundColor: colorTokens.button.light.secondary.background,
-      color: colorTokens.button.light.secondary.text,
-    },
-    dark: {
-      backgroundColor: colorTokens.button.dark.secondary.background,
-      color: colorTokens.button.dark.secondary.text,
-    },
-  },
-};
-
-const resolveSx = (
-  sx: SxProps<Theme> | undefined,
-  theme: Theme
-): SystemStyleObject<Theme> => {
-  if (!sx) return {};
-  if (typeof sx === 'function') return sx(theme) as SystemStyleObject<Theme>;
-  if (Array.isArray(sx)) {
-    return sx.reduce<SystemStyleObject<Theme>>((acc, item) => {
-      const resolved = resolveSx(item as SxProps<Theme>, theme);
-      return { ...acc, ...resolved };
-    }, {});
-  }
-  return sx as SystemStyleObject<Theme>;
-};
 
 const MyButton = ({
   label,
@@ -78,15 +38,14 @@ const MyButton = ({
   ...props
 }: MyButtonProps) => {
   const hasCustomColor = color === 'primary' || color === 'secondary';
-
-  const customSx: SxProps<Theme> = hasCustomColor
-    ? (theme: Theme): SystemStyleObject<Theme> => ({
-        ...(theme.palette.mode === 'dark'
-          ? customColorStyles[color].dark
-          : customColorStyles[color].light),
-        ...resolveSx(sx, theme),
-      })
-    : (sx ?? {});
+  const customSx: SxProps<Theme> = [
+    hasCustomColor &&
+      ((theme: Theme) => ({
+        backgroundColor: theme.palette.button[color].background,
+        color: theme.palette.button[color].text,
+      })),
+    ...(sx ? (Array.isArray(sx) ? sx : [sx]) : []),
+  ];
 
   const buttonProps: Omit<ButtonProps, 'children'> = {
     onClick,

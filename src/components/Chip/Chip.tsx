@@ -33,8 +33,8 @@ const MyChip =({
       {...chipProps}
       sx={{
         "& .MuiChip-label": {
-          px: 2,
-          py: 2,
+          px: 1,
+          py: 0.5,
         },
         ...props.sx,
       }}

@@ -1,7 +1,7 @@
 import { TextField, InputAdornment, Typography, Box } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import type { TextFieldProps } from "@mui/material";
-import type { ReactNode } from "react";
+import { useId, type ReactNode } from "react";
 
 export type MyInputProps = {
   label: string;
@@ -36,6 +36,7 @@ export type MyInputProps = {
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
   labelPlacement?: "inside" | "outside";
+  colorVariant?: "primary" | "secondary";
 } & Omit<TextFieldProps, "label" | "startAdornment" | "endAdornment">;
 
 const MyInput = ({
@@ -61,10 +62,14 @@ const MyInput = ({
   startAdornment,
   endAdornment,
   labelPlacement = "outside",
+  colorVariant = "primary",
   sx,
   ...props
 }: MyInputProps) => {
   const theme = useTheme();
+  const generatedId = useId();
+  const inputId = props.id ?? generatedId;
+  const inputPalette = theme.palette.input[colorVariant];
 
   const enhancedInputProps = {
     ...InputProps,
@@ -82,6 +87,7 @@ const MyInput = ({
 
   const textField = (
     <TextField
+      id={inputId}
       label={labelPlacement === "inside" ? label : undefined}
       value={value}
       onChange={onChange}
@@ -103,11 +109,32 @@ const MyInput = ({
       InputProps={enhancedInputProps}
       sx={{
         "& .MuiInputBase-root": {
-          backgroundColor: theme.palette.input.background,
+          backgroundColor: inputPalette.background,
         },
+        "& .MuiOutlinedInput-notchedOutline": {
+          border: "none",
+        },
+        "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
+          border: "none",
+        },
+        "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+          {
+            border: "none",
+          },
+        "& .MuiInput-underline:before, & .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before":
+          {
+            borderBottom: "none",
+          },
+        "& .MuiFilledInput-underline:before, & .MuiFilledInput-underline:after, & .MuiFilledInput-underline:hover:not(.Mui-disabled):before":
+          {
+            borderBottom: "none",
+          },
         "& .MuiInputBase-input::placeholder": {
-          color: theme.palette.input.placeholder,
+          color: inputPalette.placeholder,
           opacity: 1,
+        },
+        "& .MuiInputBase-input": {
+          color: inputPalette.text,
         },
 
         ...sx,
@@ -124,7 +151,11 @@ const MyInput = ({
         gap={0.75}
         width={fullWidth ? "100%" : undefined}
       >
-        <Typography sx={{ color: theme.palette.text.secondary }}>
+        <Typography
+          component="label"
+          htmlFor={inputId}
+          sx={{ color: theme.palette.text.secondary }}
+        >
           {label}
         </Typography>
         {textField}

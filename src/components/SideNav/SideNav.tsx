@@ -18,7 +18,6 @@ import type {
   Theme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { colorTokens } from "../../tokens";
 
 export type NavItem = {
   label: string;
@@ -60,10 +59,41 @@ const MySideNav = ({
 }: MySideNavProps) => {
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState(defaultActive || items[0]?.label || "");
+  const logoText = title.trim().charAt(0).toUpperCase() || "Q";
+  const paperSx: SxProps<Theme> = [
+    (theme) => ({
+      width,
+      bgcolor: theme.palette.background.muted,
+      color: theme.palette.text.primary,
+      borderRight: `1px solid ${theme.palette.divider}`,
+      boxShadow: "none",
+    }),
+    ...(drawerProps?.PaperProps?.sx
+      ? Array.isArray(drawerProps.PaperProps.sx)
+        ? drawerProps.PaperProps.sx
+        : [drawerProps.PaperProps.sx]
+      : []),
+  ];
+  const headerStyles: SxProps<Theme> = [
+    (theme) => ({
+      px: 2,
+      py: 2.5,
+      display: "flex",
+      alignItems: "center",
+      gap: 1.5,
+      bgcolor: headerBgColor || theme.palette.background.muted,
+      color: headerTextColor || theme.palette.text.primary,
+    }),
+    ...(headerSx ? (Array.isArray(headerSx) ? headerSx : [headerSx]) : []),
+  ];
 
   return (
     <>
-      <IconButton onClick={() => setOpen(true)} {...iconButtonProps}>
+      <IconButton
+        onClick={() => setOpen(true)}
+        aria-label={iconButtonProps?.["aria-label"] || "open side navigation"}
+        {...iconButtonProps}
+      >
         {menuIcon || <MenuIcon />}
       </IconButton>
 
@@ -74,62 +104,44 @@ const MySideNav = ({
         {...drawerProps}
         PaperProps={{
           ...drawerProps?.PaperProps,
-          sx: {
-            width,
-            bgcolor: colorTokens.background.dark.muted,
-            color: colorTokens.text.dark.primary,
-            borderRight: `1px solid ${colorTokens.divider.dark}`,
-            boxShadow: "none",
-            ...(drawerProps?.PaperProps?.sx || {}),
-          },
+          sx: paperSx,
         }}
       >
         <Box
-          sx={{
+          sx={(theme) => ({
             height: "100%",
             display: "flex",
             flexDirection: "column",
-            bgcolor: colorTokens.background.dark.muted,
-          }}
+            bgcolor: theme.palette.background.muted,
+          })}
           role="presentation"
         >
-          <Box
-            sx={{
-              px: 2,
-              py: 2.5,
-              display: "flex",
-              alignItems: "center",
-              gap: 1.5,
-              bgcolor: headerBgColor || colorTokens.background.dark.muted,
-              color: headerTextColor || colorTokens.text.dark.primary,
-              ...headerSx,
-            }}
-          >
+          <Box sx={headerStyles}>
             <Box
-              sx={{
+              sx={(theme) => ({
                 width: 24,
                 height: 24,
                 borderRadius: "6px",
-                bgcolor: colorTokens.indigo.main,
+                bgcolor: theme.palette.indigo.main,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                color: colorTokens.common.white,
+                color: theme.palette.common.white,
                 fontSize: 14,
                 fontWeight: 700,
                 flexShrink: 0,
-              }}
+              })}
             >
-              Q
+              {logoText}
             </Box>
 
             <Typography
               variant="subtitle1"
-              sx={{
+              sx={(theme) => ({
                 fontWeight: 700,
-                color: colorTokens.text.dark.primary,
+                color: headerTextColor || theme.palette.text.primary,
                 letterSpacing: "0.01em",
-              }}
+              })}
             >
               {title}
             </Typography>
@@ -137,9 +149,9 @@ const MySideNav = ({
 
           {showDivider && (
             <Divider
-              sx={{
-                borderColor: colorTokens.divider.dark,
-              }}
+              sx={(theme) => ({
+                borderColor: theme.palette.divider,
+              })}
             />
           )}
 
@@ -163,32 +175,32 @@ const MySideNav = ({
                       item.onClick?.();
                       setOpen(false);
                     }}
-                    sx={{
+                    sx={(theme) => ({
                       minHeight: 40,
                       px: 1.25,
                       borderRadius: "8px",
                       color: selected
-                        ? colorTokens.text.dark.primary
-                        : colorTokens.text.dark.secondary,
+                        ? theme.palette.text.primary
+                        : theme.palette.text.secondary,
                       "&:hover": {
-                        bgcolor: colorTokens.action.dark.hover,
+                        bgcolor: theme.palette.action.hover,
                       },
                       "&.Mui-selected": {
-                        bgcolor: colorTokens.action.dark.selected,
-                        color: colorTokens.indigo[200],
+                        bgcolor: theme.palette.action.selected,
+                        color: theme.palette.indigo[200],
                       },
                       "&.Mui-selected:hover": {
-                        bgcolor: colorTokens.action.dark.selected,
+                        bgcolor: theme.palette.action.selected,
                       },
-                    }}
+                    })}
                   >
                     <ListItemIcon
-                      sx={{
+                      sx={(theme) => ({
                         minWidth: 32,
                         color: selected
-                          ? colorTokens.text.dark.primary
-                          : colorTokens.text.dark.secondary,
-                      }}
+                          ? theme.palette.text.primary
+                          : theme.palette.text.secondary,
+                      })}
                     >
                       {item.icon}
                     </ListItemIcon>
@@ -208,9 +220,9 @@ const MySideNav = ({
 
           <Box sx={{ mt: "auto" }}>
             <Divider
-              sx={{
-                borderColor: colorTokens.divider.dark,
-              }}
+              sx={(theme) => ({
+                borderColor: theme.palette.divider,
+              })}
             />
           </Box>
         </Box>
