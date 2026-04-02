@@ -9,12 +9,12 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import type {
-  SelectChangeEvent,
   SelectProps,
   FormControlProps,
   SxProps,
   Theme,
 } from "@mui/material";
+import { useId } from "react";
 
 export type OptionType = {
   value: string;
@@ -64,9 +64,12 @@ const MySelect = ({
   sx,
 }: MySelectProps) => {
   const theme = useTheme();
+  const generatedId = useId();
+  const selectId = selectProps?.id ?? generatedId;
+  const labelId = `${selectId}-label`;
   const selectPalette = theme.palette.input[colorVariant];
 
-  const handleChange = (event: SelectChangeEvent<string>) => {
+  const handleChange: NonNullable<SelectProps["onChange"]> = (event) => {
     onChange(event.target.value as string);
   };
 
@@ -117,14 +120,26 @@ const MySelect = ({
       }}
       {...formControlProps}
     >
-      {labelPlacement === "inside" && <InputLabel>{label}</InputLabel>}
+      {labelPlacement === "inside" && (
+        <InputLabel id={labelId}>{label}</InputLabel>
+      )}
 
       <Select
+        id={selectId}
+        labelId={labelPlacement === "inside" ? labelId : undefined}
         value={value}
         label={labelPlacement === "inside" ? label : undefined}
-        onChange={handleChange as any}
+        onChange={handleChange}
         multiple={multiple}
         displayEmpty={!!placeholder}
+        inputProps={
+          labelPlacement === "outside"
+            ? {
+                ...selectProps?.inputProps,
+                "aria-labelledby": labelId,
+              }
+            : selectProps?.inputProps
+        }
         renderValue={
           !value && placeholder
             ? () => (
@@ -165,7 +180,13 @@ const MySelect = ({
         gap={0.75}
         width={fullWidth ? "100%" : undefined}
       >
-        <Typography sx={{ color: theme.palette.text.secondary }}>
+        <Typography
+          id={labelId}
+          component="label"
+          htmlFor={selectId}
+          variant="body2"
+          color="text.secondary"
+        >
           {label}
         </Typography>
         {selectField}

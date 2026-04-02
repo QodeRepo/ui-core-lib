@@ -154,7 +154,8 @@ const MyInput = ({
         <Typography
           component="label"
           htmlFor={inputId}
-          sx={{ color: theme.palette.text.secondary }}
+          variant="body2"
+          color="text.secondary"
         >
           {label}
         </Typography>
