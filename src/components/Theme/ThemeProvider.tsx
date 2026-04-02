@@ -28,7 +28,6 @@ export const ThemeContext = createContext<ThemeContextType>({
 
 export const useThemeMode = () => useContext(ThemeContext);
 
-// Recursive partial to allow partial overrides of Nested color structures
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
@@ -36,19 +35,20 @@ export type DeepPartial<T> = {
 export type MyThemeProviderProps = {
   children: ReactNode;
   themeOverrides?: DeepPartial<ColorTokens>;
+  defaultMode?: ThemeMode;
 };
 
 const MyThemeProvider = ({
   children,
   themeOverrides,
+  defaultMode = "light",
 }: MyThemeProviderProps) => {
-  const [mode, setMode] = useState<ThemeMode>("dark");
+  const [mode, setMode] = useState<ThemeMode>(defaultMode);
 
   const toggleTheme = () =>
     setMode((prev) => (prev === "light" ? "dark" : "light"));
 
   const theme = useMemo(() => {
-    // Merge overriding colors if provided
     const primaryColors = {
       ...colorTokens.primary,
       ...themeOverrides?.primary,

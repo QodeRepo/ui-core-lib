@@ -70,6 +70,8 @@ const MyInput = ({
   const generatedId = useId();
   const inputId = props.id ?? generatedId;
   const inputPalette = theme.palette.input[colorVariant];
+  const outsideLabelColor =
+    theme.palette.mode === "light" ? "text.primary" : "text.secondary";
 
   const enhancedInputProps = {
     ...InputProps,
@@ -112,14 +114,14 @@ const MyInput = ({
           backgroundColor: inputPalette.background,
         },
         "& .MuiOutlinedInput-notchedOutline": {
-          border: "none",
+          borderColor: theme.palette.divider,
         },
         "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-          border: "none",
+          borderColor: theme.palette.divider,
         },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
           {
-            border: "none",
+            borderColor: theme.palette.divider,
           },
         "& .MuiInput-underline:before, & .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before":
           {
@@ -155,7 +157,7 @@ const MyInput = ({
           component="label"
           htmlFor={inputId}
           variant="body2"
-          color="text.secondary"
+          color={outsideLabelColor}
         >
           {label}
         </Typography>

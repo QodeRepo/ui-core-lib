@@ -96,14 +96,14 @@ const MySelect = ({
           color: selectPalette.text,
         },
         "& .MuiOutlinedInput-notchedOutline": {
-          border: "none",
+          borderColor: theme.palette.divider,
         },
         "& .MuiOutlinedInput-root:hover .MuiOutlinedInput-notchedOutline": {
-          border: "none",
+          borderColor: theme.palette.divider,
         },
         "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
           {
-            border: "none",
+            borderColor: theme.palette.divider,
           },
         "& .MuiInput-underline:before, & .MuiInput-underline:after, & .MuiInput-underline:hover:not(.Mui-disabled):before":
           {
@@ -143,9 +143,9 @@ const MySelect = ({
         renderValue={
           !value && placeholder
             ? () => (
-                <span style={{ color: selectPalette.placeholder }}>
+                <Box component="span" sx={{ color: selectPalette.placeholder }}>
                   {placeholder}
-                </span>
+                </Box>
               )
             : undefined
         }

@@ -23,6 +23,7 @@ function MyAppBar({
   title,
   navItems = [],
   position = "static",
+  color = "default",
   onLoginClick,
   onSignupClick,
   loginLabel = "Login",
@@ -32,10 +33,9 @@ function MyAppBar({
   return (
     <AppBar
       position={position}
+      color={color}
       elevation={0}
-      sx={{
-        backgroundColor: "background.default",
-      }}
+      sx={color === "default" ? { backgroundColor: "background.default" } : {}}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
@@ -80,7 +80,7 @@ function MyAppBar({
           <Button
             onClick={onLoginClick}
             sx={(theme) => ({
-              color: theme.palette.indigo?.[200],
+              color: theme.palette.indigo[200],
             })}
           >
             {loginLabel}
