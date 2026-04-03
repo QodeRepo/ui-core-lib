@@ -121,6 +121,24 @@ export const WithPlaceholder: Story = {
   },
 };
 
+export const SecondaryPalette: Story = {
+  render: () => {
+    const [value, setValue] = useState('');
+    return (
+      <MyInput
+        label="Search"
+        placeholder="Search targets..."
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        variant="outlined"
+        colorVariant="secondary"
+        fullWidth
+        startAdornment={<SearchIcon />}
+      />
+    );
+  },
+};
+
 export const Required: Story = {
   render: () => {
     const [value, setValue] = useState('');

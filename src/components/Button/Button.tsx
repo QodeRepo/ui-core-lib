@@ -1,5 +1,5 @@
 import { Button as MuiButton, CircularProgress } from '@mui/material';
-import type { ButtonProps } from '@mui/material';
+import type { ButtonProps, SxProps, Theme } from '@mui/material';
 import type { ReactNode } from 'react';
 
 export type MyButtonProps = {
@@ -19,7 +19,7 @@ export type MyButtonProps = {
   disableRipple?: boolean;
 } & Omit<ButtonProps, 'children'>;
 
-const MyButton = ({ 
+const MyButton = ({
   label,
   onClick,
   variant,
@@ -34,9 +34,20 @@ const MyButton = ({
   target,
   disableElevation,
   disableRipple,
-  ...props 
+  sx,
+  ...props
 }: MyButtonProps) => {
-  const buttonProps: any = {
+  const hasCustomColor = color === 'primary' || color === 'secondary';
+  const customSx: SxProps<Theme> = [
+    hasCustomColor &&
+      ((theme: Theme) => ({
+        backgroundColor: theme.palette.button[color].background,
+        color: theme.palette.button[color].text,
+      })),
+    ...(sx ? (Array.isArray(sx) ? sx : [sx]) : []),
+  ];
+
+  const buttonProps: Omit<ButtonProps, 'children'> = {
     onClick,
     variant,
     color,
@@ -47,21 +58,13 @@ const MyButton = ({
     endIcon,
     disableElevation,
     disableRipple,
+    href,
+    ...(href && target ? { target } : {}),
+    sx: customSx,
     ...props,
   };
 
-  if (href) {
-    buttonProps.href = href;
-    if (target) {
-      buttonProps.target = target;
-    }
-  }
-
-  return (
-    <MuiButton {...buttonProps}>
-      {label}
-    </MuiButton>
-  );
+  return <MuiButton {...buttonProps}>{label}</MuiButton>;
 };
 
 export default MyButton;
