@@ -13,8 +13,11 @@ export interface AppBarProps {
   color?: "primary" | "secondary" | "default" | "transparent" | "inherit";
   onLoginClick?: () => void;
   onSignupClick?: () => void;
+  onLogoutClick?: () => void;
+  isAuthenticated?: boolean;
   loginLabel?: string;
   signupLabel?: string;
+  logoutLabel?: string;
   action?: React.ReactNode;
 }
 
@@ -26,8 +29,11 @@ function MyAppBar({
   color = "default",
   onLoginClick,
   onSignupClick,
+  onLogoutClick,
+  isAuthenticated = false,
   loginLabel = "Login",
   signupLabel = "Sign up",
+  logoutLabel = "Logout",
   action,
 }: AppBarProps) {
   return (
@@ -77,21 +83,32 @@ function MyAppBar({
             alignItems: "center",
           }}
         >
-          <MyButton
-            label={loginLabel}
-            onClick={onLoginClick}
-            variant="text"
-            sx={(theme) => ({
-              color: theme.palette.indigo[200],
-            })}
-          />
+          {!isAuthenticated ? (
+            <>
+              <MyButton
+                label={loginLabel}
+                onClick={onLoginClick}
+                variant="text"
+                sx={(theme) => ({
+                  color: theme.palette.indigo[200],
+                })}
+              />
 
-          <MyButton
-            label={signupLabel}
-            variant="contained"
-            onClick={onSignupClick}
-            color="primary"
-          />
+              <MyButton
+                label={signupLabel}
+                variant="contained"
+                onClick={onSignupClick}
+                color="primary"
+              />
+            </>
+          ) : (
+            <MyButton
+              label={logoutLabel}
+              onClick={onLogoutClick}
+              variant="outlined"
+              color="primary"
+            />
+          )}
         </Box>
       </Toolbar>
     </AppBar>
