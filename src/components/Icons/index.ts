@@ -1,17 +1,17 @@
 export { default as ExpandMoreIcon } from '@mui/icons-material/ExpandMore';
 export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle';
-export { default as LockIcon } from '@mui/icons-material/LockOutlined';
-export { default as BugReportIcon } from '@mui/icons-material/BugReportOutlined';
-export { default as DnsIcon } from '@mui/icons-material/DnsOutlined';
-export { default as ShieldIcon } from '@mui/icons-material/ShieldOutlined';
-export { default as JavascriptIcon } from '@mui/icons-material/JavascriptOutlined';
-export { default as KeyIcon } from '@mui/icons-material/VpnKeyOutlined';
-export { default as InfoIcon } from '@mui/icons-material/InfoOutlined';
+export { default as LockOutlinedIcon } from '@mui/icons-material/LockOutlined';
+export { default as BugReportOutlinedIcon } from '@mui/icons-material/BugReportOutlined';
+export { default as DnsOutlinedIcon } from '@mui/icons-material/DnsOutlined';
+export { default as ShieldOutlinedIcon } from '@mui/icons-material/ShieldOutlined';
+export { default as JavascriptOutlinedIcon } from '@mui/icons-material/JavascriptOutlined';
+export { default as VpnKeyOutlinedIcon } from '@mui/icons-material/VpnKeyOutlined';
+export { default as InfoOutlinedIcon } from '@mui/icons-material/InfoOutlined';
 export { default as FileDownloadOutlinedIcon } from '@mui/icons-material/FileDownloadOutlined';
 export { default as ReplayIcon } from '@mui/icons-material/Replay';
 export { default as CancelIcon } from '@mui/icons-material/Cancel';
 export { default as ContentCopyIcon } from '@mui/icons-material/ContentCopy';
-export { default as HistoryIcon } from '@mui/icons-material/HistoryOutlined';
+export { default as HistoryOutlinedIcon } from '@mui/icons-material/HistoryOutlined';
 
 // New Icons from Frontend
 export { default as AddRoundedIcon } from '@mui/icons-material/AddRounded';
