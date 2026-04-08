@@ -24,17 +24,18 @@ export default defineConfig({
     lib: {
       entry: path.resolve(dirname, 'src/index.ts'),
       name: 'MyDesignSystem',
-      formats: ['es', 'cjs'],
-      fileName: (format) => `index.${format === 'es' ? 'js' : 'cjs'}`,
+      formats: ['es'],
+      fileName: () => 'index.js',
     },
     rollupOptions: {
       // Do NOT bundle React — the consumer project provides it
-      external: ['react', 'react-dom', 'react/jsx-runtime', '@emotion/react', '@emotion/styled', '@mui/material', '@mui/icons-material'],
+      external: (id) => /^(react|react-dom|react\/jsx-runtime|@emotion\/(react|styled)|@mui\/(material|icons-material|system))(\/|$)/.test(id),
       output: {
         globals: {
           react: 'React',
           'react-dom': 'ReactDOM',
         },
+        interop: 'auto',
       },
     },
     cssCodeSplit: false,
