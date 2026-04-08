@@ -1,0 +1,35 @@
+export { default as ExpandMoreIcon } from '@mui/icons-material/ExpandMore';
+export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle';
+export { default as LockOutlinedIcon } from '@mui/icons-material/LockOutlined';
+export { default as BugReportOutlinedIcon } from '@mui/icons-material/BugReportOutlined';
+export { default as DnsOutlinedIcon } from '@mui/icons-material/DnsOutlined';
+export { default as ShieldOutlinedIcon } from '@mui/icons-material/ShieldOutlined';
+export { default as JavascriptOutlinedIcon } from '@mui/icons-material/JavascriptOutlined';
+export { default as VpnKeyOutlinedIcon } from '@mui/icons-material/VpnKeyOutlined';
+export { default as InfoOutlinedIcon } from '@mui/icons-material/InfoOutlined';
+export { default as FileDownloadOutlinedIcon } from '@mui/icons-material/FileDownloadOutlined';
+export { default as ReplayIcon } from '@mui/icons-material/Replay';
+export { default as CancelIcon } from '@mui/icons-material/Cancel';
+export { default as ContentCopyIcon } from '@mui/icons-material/ContentCopy';
+export { default as HistoryOutlinedIcon } from '@mui/icons-material/HistoryOutlined';
+
+// New Icons from Frontend
+export { default as AddRoundedIcon } from '@mui/icons-material/AddRounded';
+export { default as AssignmentTurnedInRoundedIcon } from '@mui/icons-material/AssignmentTurnedInRounded';
+export { default as CheckCircleRoundedIcon } from '@mui/icons-material/CheckCircleRounded';
+export { default as CheckRoundedIcon } from '@mui/icons-material/CheckRounded';
+export { default as GppGoodOutlinedIcon } from '@mui/icons-material/GppGoodOutlined';
+export { default as GpsFixedRoundedIcon } from '@mui/icons-material/GpsFixedRounded';
+export { default as HomeOutlinedIcon } from '@mui/icons-material/HomeOutlined';
+export { default as MenuIcon } from '@mui/icons-material/Menu';
+export { default as MoreVertRoundedIcon } from '@mui/icons-material/MoreVertRounded';
+export { default as NotificationsNoneOutlinedIcon } from '@mui/icons-material/NotificationsNoneOutlined';
+export { default as RadarOutlinedIcon } from '@mui/icons-material/RadarOutlined';
+export { default as SearchIcon } from '@mui/icons-material/Search';
+export { default as SettingsOutlinedIcon } from '@mui/icons-material/SettingsOutlined';
+export { default as StorageRoundedIcon } from '@mui/icons-material/StorageRounded';
+export { default as TrackChangesRoundedIcon } from '@mui/icons-material/TrackChangesRounded';
+export { default as VerifiedUserOutlinedIcon } from '@mui/icons-material/VerifiedUserOutlined';
+export { default as VisibilityOffOutlinedIcon } from '@mui/icons-material/VisibilityOffOutlined';
+export { default as VisibilityOutlinedIcon } from '@mui/icons-material/VisibilityOutlined';
+export { default as WarningAmberRoundedIcon } from '@mui/icons-material/WarningAmberRounded';

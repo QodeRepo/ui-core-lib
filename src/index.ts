@@ -23,12 +23,45 @@ export { default as Typography } from './components/Typography';
 export { default as Box } from './components/Box';
 export type { MyBoxProps } from './components/Box';
 
+export * from './components/Icons';
+
 export { default as Paper } from './components/Paper';
 export type { MyPaperProps } from './components/Paper';
 
-// Theme
+// MUI Proxied Components
+export { 
+  Stack, 
+  Grid, 
+  Container, 
+  LinearProgress, 
+  Link, 
+  Drawer, 
+  IconButton, 
+  List, 
+  ListItem, 
+  ListItemButton, 
+  ListItemIcon, 
+  ListItemText,
+  Menu,
+  MenuItem,
+  Divider,
+  CircularProgress,
+  Tooltip,
+  Badge,
+  Avatar,
+  Fade,
+  Grow,
+  Slide,
+  Zoom,
+  Collapse,
+  useMediaQuery
+} from '@mui/material';
+
+// Theme & Styles
 export { MyThemeProvider, ThemeToggle, useThemeMode } from './components/Theme';
 export type { MyThemeProviderProps } from './components/Theme/ThemeProvider';
+export { useTheme, styled } from '@mui/material/styles';
+export type { SxProps, Theme } from '@mui/material';
 
 // Tokens
 export * from './tokens';
