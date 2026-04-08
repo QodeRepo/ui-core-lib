@@ -17,7 +17,6 @@ export interface AppBarProps {
   onLoginClick?: () => void;
   onSignupClick?: () => void;
   onLogoutClick?: () => void;
-  isAuthenticated?: boolean;
   loginLabel?: string;
   signupLabel?: string;
   logoutLabel?: string;
@@ -35,7 +34,6 @@ function MyAppBar({
   onLoginClick,
   onSignupClick,
   onLogoutClick,
-  isAuthenticated = false,
   loginLabel = "Login",
   signupLabel = "Sign up",
   logoutLabel = "Logout",
@@ -114,13 +112,6 @@ function MyAppBar({
                 color="primary"
               />
             </>
-          ) : (
-            <MyButton
-              label={logoutLabel}
-              onClick={onLogoutClick}
-              variant="outlined"
-              color="primary"
-            />
           )}
         </Box>
       </Toolbar>

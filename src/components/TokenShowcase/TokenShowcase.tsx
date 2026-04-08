@@ -65,14 +65,14 @@ const TokenShowcase = () => {
       </Box>
 
       {/* Usage Example */}
-      <Card sx={{ borderRadius: borders.radius.lg, p: spacing.scale[4], bgcolor: colors.info[50], border: `${borders.width.thin}px solid ${colors.info.main}` }}>
+      <Card sx={{ borderRadius: borders.radius.lg, p: spacing.scale[4], bgcolor: colors.info[100], border: `${borders.width.thin}px solid ${colors.info.main}` }}>
         <Typography variant="h5" sx={{ mb: spacing.scale[2], color: colors.info.dark }}>
           💡 Using Design Tokens
         </Typography>
         <Typography variant="body1" sx={{ mb: spacing.scale[2] }}>
           All values are driven by tokens. Example usage:
         </Typography>
-        <Box component="pre" sx={{ p: spacing.scale[2], bgcolor: colors.grey[900], color: colors.common.white, borderRadius: borders.radius.md, overflow: 'auto', fontFamily: typography.fontFamily.code, fontSize: typography.fontSize.sm }}>
+        <Box component="pre" sx={{ p: spacing.scale[2], bgcolor: colors.grey[900], color: colors.common.white, borderRadius: borders.radius.md, overflow: 'auto', fontFamily: typography.fontFamily.mono, fontSize: typography.fontSize.sm }}>
           {`import { useDesignTokens } from './hooks/useDesignTokens';
 
 const { colors, spacing } = useDesignTokens();
