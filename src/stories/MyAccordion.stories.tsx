@@ -230,10 +230,10 @@ export const WithRichContent: Story = {
         title: 'User Profile',
         content: (
           <Box>
-            <Typography variant="body2" color="text.secondary" paragraph>
+            <Typography variant="body2" color="text.secondary" component="p">
               <strong>Name:</strong> John Doe
             </Typography>
-            <Typography variant="body2" color="text.secondary" paragraph>
+            <Typography variant="body2" color="text.secondary" component="p">
               <strong>Email:</strong> john.doe@example.com
             </Typography>
             <Typography variant="body2" color="text.secondary">

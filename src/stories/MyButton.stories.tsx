@@ -79,7 +79,7 @@ export const OutlinedColors: Story = {
 
 export const Sizes: Story = {
   render: () => (
-    <Stack direction="row" spacing={2} alignItems="center">
+    <Stack direction="row" spacing={2} sx={{ alignItems: "center" }}>
       <MyButton label="Small" variant="contained" color="primary" size="small" onClick={() => {}} />
       <MyButton label="Medium" variant="contained" color="primary" size="medium" onClick={() => {}} />
       <MyButton label="Large" variant="contained" color="primary" size="large" onClick={() => {}} />

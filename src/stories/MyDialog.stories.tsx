@@ -424,7 +424,7 @@ export const NoActions: Story = {
           title="Information"
           description={
             <Box>
-              <Typography paragraph>
+              <Typography component="p">
                 This is a display-only dialog with no action buttons.
               </Typography>
               <Typography>

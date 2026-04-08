@@ -31,8 +31,7 @@ export type MyInputProps = {
   size?: "small" | "medium";
   autoFocus?: boolean;
   autoComplete?: string;
-  inputProps?: TextFieldProps["inputProps"];
-  InputProps?: TextFieldProps["InputProps"];
+  slotProps?: TextFieldProps["slotProps"];
   startAdornment?: ReactNode;
   endAdornment?: ReactNode;
   labelPlacement?: "inside" | "outside";
@@ -57,8 +56,7 @@ const MyInput = ({
   size,
   autoFocus,
   autoComplete,
-  inputProps,
-  InputProps,
+  slotProps: externalSlotProps,
   startAdornment,
   endAdornment,
   labelPlacement = "outside",
@@ -73,18 +71,21 @@ const MyInput = ({
   const outsideLabelColor =
     theme.palette.mode === "light" ? "text.primary" : "text.secondary";
 
-  const enhancedInputProps = {
-    ...InputProps,
-    ...(startAdornment && {
-      startAdornment: (
-        <InputAdornment position="start">{startAdornment}</InputAdornment>
-      ),
-    }),
-    ...(endAdornment && {
-      endAdornment: (
-        <InputAdornment position="end">{endAdornment}</InputAdornment>
-      ),
-    }),
+  const enhancedSlotProps: TextFieldProps["slotProps"] = {
+    ...externalSlotProps,
+    input: {
+      ...(externalSlotProps?.input as Record<string, unknown>),
+      ...(startAdornment && {
+        startAdornment: (
+          <InputAdornment position="start">{startAdornment}</InputAdornment>
+        ),
+      }),
+      ...(endAdornment && {
+        endAdornment: (
+          <InputAdornment position="end">{endAdornment}</InputAdornment>
+        ),
+      }),
+    },
   };
 
   const textField = (
@@ -107,8 +108,7 @@ const MyInput = ({
       size={size}
       autoFocus={autoFocus}
       autoComplete={autoComplete}
-      inputProps={inputProps}
-      InputProps={enhancedInputProps}
+      slotProps={enhancedSlotProps}
       sx={{
         "& .MuiInputBase-root": {
           backgroundColor: inputPalette.background,
@@ -148,10 +148,7 @@ const MyInput = ({
   if (labelPlacement === "outside") {
     return (
       <Box
-        display="flex"
-        flexDirection="column"
-        gap={0.75}
-        width={fullWidth ? "100%" : undefined}
+        sx={{ display: "flex", flexDirection: "column", gap: 0.75, width: fullWidth ? "100%" : undefined }}
       >
         <Typography
           component="label"

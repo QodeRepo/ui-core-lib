@@ -68,11 +68,6 @@ const MySideNav = ({
       borderRight: `1px solid ${theme.palette.divider}`,
       boxShadow: "none",
     }),
-    ...(drawerProps?.PaperProps?.sx
-      ? Array.isArray(drawerProps.PaperProps.sx)
-        ? drawerProps.PaperProps.sx
-        : [drawerProps.PaperProps.sx]
-      : []),
   ];
   const headerStyles: SxProps<Theme> = [
     (theme) => ({
@@ -102,9 +97,8 @@ const MySideNav = ({
         open={open}
         onClose={() => setOpen(false)}
         {...drawerProps}
-        PaperProps={{
-          ...drawerProps?.PaperProps,
-          sx: paperSx,
+        slotProps={{
+          paper: { sx: paperSx },
         }}
       >
         <Box
@@ -207,9 +201,10 @@ const MySideNav = ({
 
                     <ListItemText
                       primary={item.label}
-                      primaryTypographyProps={{
-                        fontSize: 14,
-                        fontWeight: selected ? 600 : 500,
+                      slotProps={{
+                        primary: {
+                          sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
+                        },
                       }}
                     />
                   </ListItemButton>

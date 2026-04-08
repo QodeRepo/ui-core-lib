@@ -315,7 +315,7 @@ export const NumberInput: Story = {
         onChange={(e) => setValue(e.target.value)}
         variant="outlined"
         fullWidth
-        inputProps={{ min: 0, max: 120 }}
+        slotProps={{ htmlInput: { min: 0, max: 120 } }}
       />
     );
   },
@@ -332,7 +332,7 @@ export const DateInput: Story = {
         onChange={(e) => setValue(e.target.value)}
         variant="outlined"
         fullWidth
-        InputLabelProps={{ shrink: true }}
+        slotProps={{ inputLabel: { shrink: true } }}
       />
     );
   },
@@ -349,7 +349,7 @@ export const TimeInput: Story = {
         onChange={(e) => setValue(e.target.value)}
         variant="outlined"
         fullWidth
-        InputLabelProps={{ shrink: true }}
+        slotProps={{ inputLabel: { shrink: true } }}
       />
     );
   },
@@ -439,7 +439,7 @@ export const CharacterLimit: Story = {
         multiline
         rows={3}
         fullWidth
-        inputProps={{ maxLength }}
+        slotProps={{ htmlInput: { maxLength } }}
         helperText={`${value.length}/${maxLength} characters`}
       />
     );

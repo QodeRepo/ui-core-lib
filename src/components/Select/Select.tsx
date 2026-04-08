@@ -175,10 +175,7 @@ const MySelect = ({
   if (labelPlacement === "outside") {
     return (
       <Box
-        display="flex"
-        flexDirection="column"
-        gap={0.75}
-        width={fullWidth ? "100%" : undefined}
+        sx={{ display: "flex", flexDirection: "column", gap: 0.75, width: fullWidth ? "100%" : undefined }}
       >
         <Typography
           id={labelId}
