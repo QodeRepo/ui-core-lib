@@ -11,6 +11,9 @@ export interface AppBarProps {
   navItems?: { label: string; onClick?: () => void }[];
   position?: "fixed" | "absolute" | "sticky" | "static" | "relative";
   color?: "primary" | "secondary" | "default" | "transparent" | "inherit";
+  
+  // Auth props
+  isAuthenticated?: boolean;
   onLoginClick?: () => void;
   onSignupClick?: () => void;
   onLogoutClick?: () => void;
@@ -27,6 +30,8 @@ function MyAppBar({
   navItems = [],
   position = "static",
   color = "default",
+  
+  isAuthenticated = false,
   onLoginClick,
   onSignupClick,
   onLogoutClick,
@@ -44,9 +49,9 @@ function MyAppBar({
       sx={color === "default" ? { backgroundColor: "background.default" } : {}}
     >
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
+        {/* Left Section: Logo + Title + Custom Action */}
         <Box sx={{ display: "flex", alignItems: "center", flex: 1 }}>
           {action}
-
           {logo}
           {title && (
             <Typography variant="h6" sx={{ ml: logo || action ? 1 : 0 }}>
@@ -55,6 +60,7 @@ function MyAppBar({
           )}
         </Box>
 
+        {/* Center Navigation */}
         <Box
           sx={{
             flex: 1,
@@ -83,7 +89,14 @@ function MyAppBar({
             alignItems: "center",
           }}
         >
-          {!isAuthenticated ? (
+          {isAuthenticated ? (
+            <MyButton
+              label={logoutLabel}
+              variant="contained"
+             color="error"
+              onClick={onLogoutClick}
+            />
+          ) : (
             <>
               <MyButton
                 label={loginLabel}
