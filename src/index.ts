@@ -66,6 +66,9 @@ export type { SxProps, Theme } from '@mui/material';
 // Tokens
 export * from './tokens';
 
+// Utilities
+export { alpha } from './utils/alpha';
+
 // Hooks
 export * from './hooks';
 

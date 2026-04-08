@@ -1,245 +1,236 @@
-// Color Tokens - Design System Color Palette
+// Color Tokens - Design System Color Palette (aligned to QAISS / MD3 spec)
+//
+// Architecture: Internal MD3-aligned palette → exported MUI-compatible structure.
+// Each hex value is defined ONCE in the internal palette. The exported object
+// references those constants so changes propagate automatically.
+
+// ─── Internal Palette (single source of truth) ──────────────────────────────
+
+const surface = {
+  default:          "#121317",  // MD3: surface
+  containerLowest:  "#0d0e12",  // MD3: surface_container_lowest
+  containerLow:     "#1a1b20",  // MD3: surface_container_low
+  container:        "#1f1f24",  // MD3: surface_container
+  containerHigh:    "#292a2e",  // MD3: surface_container_high
+  containerHighest: "#343439",  // MD3: surface_container_highest
+  bright:           "#38393d",  // MD3: surface_bright
+  dim:              "#121317",  // MD3: surface_dim
+} as const;
+
+const onSurface = {
+  default: "#e3e2e7",  // MD3: on_surface
+  variant: "#c7c5d0",  // MD3: on_surface_variant
+} as const;
+
+const _outline = {
+  default: "#918f9a",  // MD3: outline
+  variant: "#46464f",  // MD3: outline_variant
+} as const;
+
+const brand = {
+  primary:            "#e1dfff",  // MD3: primary
+  primaryContainer:   "#c0c1ff",  // MD3: primary_container
+  primaryFixed:       "#e1e0ff",  // MD3: primary_fixed
+  onPrimary:          "#292b5e",  // MD3: on_primary
+  onPrimaryContainer: "#2724b8",  // QAISS: on_primary (button text)
+
+  secondary:            "#c4c6d5",  // MD3: secondary
+  secondaryContainer:   "#434653",  // MD3: secondary_container
+  secondaryFixed:       "#e0e1f1",  // MD3: secondary_fixed
+  onSecondary:          "#2d303c",  // MD3: on_secondary
+  onSecondaryFixed:     "#181b26",  // MD3: on_secondary_fixed
+} as const;
+
+const status = {
+  secure:             "#4ade80",  // QAISS: status-secure
+  secureLight:        "#86efac",
+  secureDark:         "#15803d",
+  secureContrastText: "#052e16",
+
+  critical:             "#ef4444",  // QAISS: status-critical
+  criticalLight:        "#ffb4ab",  // MD3: error
+  criticalDark:         "#93000a",  // MD3: error_container
+
+  warning:              "#facc15",  // QAISS: status-warning
+  warningLight:         "#fde047",
+  warningDark:          "#a16207",
+  warningContrastText:  "#422006",
+  warningSurface:       "#fefce8",
+  warningSurfaceAlt:    "#fef9c3",
+
+  info:              "#22d3ee",  // QAISS: status-info
+  infoLight:         "#67e8f9",
+  infoDark:          "#0e7490",
+  infoContrastText:  "#083344",
+  infoSurface:       "#cffafe",
+} as const;
+
+const white = "#ffffff";
+const black = "#000000";
+
+// ─── Exported Token Object ──────────────────────────────────────────────────
+
 export const colorTokens = {
-  // Primary Colors
+  // ─── Palette ───
+
   primary: {
-    50: "#e3f2fd",
-    100: "#bbdefb",
-    200: "#90caf9",
-    300: "#64b5f6",
-    400: "#42a5f5",
-    500: "#1976d2",
-    600: "#1e88e5",
-    700: "#1565c0",
-    800: "#0d47a1",
-    900: "#0a3d91",
-    main: "#1976d2",
-    light: "#42a5f5",
-    dark: "#1565c0",
-    contrastText: "#ffffff",
+    main: brand.primary,
+    light: brand.primaryContainer,
+    dark: brand.onPrimary,
+    contrastText: brand.onPrimary,
   },
 
-  // Secondary Colors
   secondary: {
-    50: "#f3e5f5",
-    100: "#e1bee7",
-    200: "#ce93d8",
-    300: "#ba68c8",
-    400: "#ab47bc",
-    500: "#9c27b0",
-    600: "#8e24aa",
-    700: "#7b1fa2",
-    800: "#6a1b9a",
-    900: "#4a148c",
-    main: "#9c27b0",
-    light: "#ba68c8",
-    dark: "#7b1fa2",
-    contrastText: "#ffffff",
-  },
-
-  // Success Colors
-  success: {
-    50: "#e8f5e9",
-    100: "#c8e6c9",
-    200: "#a5d6a7",
-    300: "#81c784",
-    400: "#66bb6a",
-    500: "#4caf50",
-    600: "#43a047",
-    700: "#388e3c",
-    800: "#2e7d32",
-    900: "#1b5e20",
-    main: "#4caf50",
-    light: "#81c784",
-    dark: "#388e3c",
-    contrastText: "#ffffff",
-  },
-
-  // Error Colors
-  error: {
-    50: "#ffebee",
-    100: "#ffcdd2",
-    200: "#ef9a9a",
-    300: "#e57373",
-    400: "#ef5350",
-    500: "#f44336",
-    600: "#e53935",
-    700: "#d32f2f",
-    800: "#c62828",
-    900: "#b71c1c",
-    main: "#d32f2f",
-    light: "#ef5350",
-    dark: "#c62828",
-    contrastText: "#ffffff",
-  },
-
-  // Warning Colors
-  warning: {
-    50: "#fff3e0",
-    100: "#ffe0b2",
-    200: "#ffcc80",
-    300: "#ffb74d",
-    400: "#ffa726",
-    500: "#ff9800",
-    600: "#fb8c00",
-    700: "#f57c00",
-    800: "#ef6c00",
-    900: "#e65100",
-    main: "#ed6c02",
-    light: "#ff9800",
-    dark: "#e65100",
-    contrastText: "#ffffff",
-  },
-
-  // Info Colors
-  info: {
-    50: "#e3f2fd",
-    100: "#bbdefb",
-    200: "#90caf9",
-    300: "#64b5f6",
-    400: "#42a5f5",
-    500: "#2196f3",
-    600: "#1e88e5",
-    700: "#1976d2",
-    800: "#1565c0",
-    900: "#0d47a1",
-    main: "#0288d1",
-    light: "#03a9f4",
-    dark: "#01579b",
-    contrastText: "#ffffff",
-  },
-
-  // Neutral/Grey Colors
-  grey: {
-    50: "#fafafa",
-    100: "#f5f5f5",
-    200: "#eeeeee",
-    300: "#e0e0e0",
-    400: "#bdbdbd",
-    500: "#9e9e9e",
-    600: "#757575",
-    700: "#616161",
-    800: "#424242",
-    900: "#212121",
-    A100: "#f5f5f5",
-    A200: "#eeeeee",
-    A400: "#bdbdbd",
-    A700: "#616161",
+    main: brand.secondary,
+    light: brand.secondaryFixed,
+    dark: brand.onSecondary,
+    contrastText: brand.onSecondaryFixed,
   },
 
   indigo: {
-    100: "#EEF0FF",
-    200: "#C0C1FF",
-    300: "#9FA3FF",
-    400: "#7C82FF",
-    500: "#5A60FF",
-    main: "#5A60FF",
+    100: brand.primaryFixed,
+    200: brand.primaryContainer,
+    300: "#9fa3ff",
+    400: "#7c82ff",
+    500: "#5a60ff",
+    main: "#5a60ff",
   },
 
-  // Common Colors
-  common: {
-    black: "#000000",
-    white: "#ffffff",
+  grey: {
+    100: onSurface.default,
+    300: onSurface.variant,
+    500: _outline.default,
+    600: _outline.variant,
+    700: surface.bright,
+    800: surface.containerHighest,
+    900: surface.container,
   },
 
-  // Background Colors
+  common: { black, white },
+
+  // ─── Semantic (status) ───
+
+  success: {
+    main: status.secure,
+    light: status.secureLight,
+    dark: status.secureDark,
+    contrastText: status.secureContrastText,
+  },
+
+  error: {
+    main: status.critical,
+    light: status.criticalLight,
+    dark: status.criticalDark,
+    contrastText: white,
+  },
+
+  warning: {
+    50: status.warningSurface,
+    100: status.warningSurfaceAlt,
+    main: status.warning,
+    light: status.warningLight,
+    dark: status.warningDark,
+    contrastText: status.warningContrastText,
+  },
+
+  info: {
+    100: status.infoSurface,
+    main: status.info,
+    light: status.infoLight,
+    dark: status.infoDark,
+    contrastText: status.infoContrastText,
+  },
+
+  // ─── Surface (MD3) ───
+
+  outline: {
+    default: _outline.default,
+    variant: _outline.variant,
+  },
+
   background: {
     light: {
-      default: "#ffffff",
-      paper: "#ffffff",
+      default: white,
+      paper: white,
       paperElevated: "#f5f5f5",
-      section: "#f9fafb", 
-      surface: "#ffffff",
+      section: "#f9fafb",
+      surface: white,
       muted: "#f5f5f5",
     },
     dark: {
-      default: "#000",
-      paper: "#1e1e1e",
-      paperElevated: "#121319",
-      section: "#1A1B20",
-      surface: "#292A2E",
-      muted: "#090b12",
+      default: surface.default,
+      paper: surface.container,
+      paperElevated: surface.containerLowest,
+      section: surface.containerLow,
+      surface: surface.containerHigh,
+      muted: surface.dim,
     },
   },
 
-  // Text Colors
   text: {
     light: {
       primary: "rgba(0, 0, 0, 0.87)",
       secondary: "rgba(0, 0, 0, 0.6)",
       disabled: "rgba(0, 0, 0, 0.38)",
-      hint: "rgba(0, 0, 0, 0.38)",
     },
     dark: {
-      primary: "#ffffff",
-      secondary: "rgba(255, 255, 255, 0.7)",
-      disabled: "rgba(255, 255, 255, 0.5)",
-      hint: "rgba(255, 255, 255, 0.5)",
+      primary: onSurface.default,
+      secondary: onSurface.variant,
+      disabled: _outline.default,
     },
   },
 
-  // Divider Colors
   divider: {
     light: "rgba(0, 0, 0, 0.12)",
-    dark: "rgba(255, 255, 255, 0.12)",
+    dark: "rgba(70, 70, 79, 0.35)",
   },
 
-  // Action Colors
   action: {
     light: {
-      active: "rgba(0, 0, 0, 0.54)",
       hover: "rgba(0, 0, 0, 0.04)",
-      hoverOpacity: 0.04,
       selected: "rgba(0, 0, 0, 0.08)",
-      selectedOpacity: 0.08,
       disabled: "rgba(0, 0, 0, 0.26)",
-      disabledBackground: "rgba(0, 0, 0, 0.12)",
-      disabledOpacity: 0.38,
       focus: "rgba(0, 0, 0, 0.12)",
-      focusOpacity: 0.12,
-      activatedOpacity: 0.12,
     },
     dark: {
-      active: "#ffffff",
-      hover: "rgba(255, 255, 255, 0.08)",
-      hoverOpacity: 0.08,
-      selected: "rgba(255, 255, 255, 0.16)",
-      selectedOpacity: 0.16,
+      hover: surface.bright,
+      selected: "rgba(192, 193, 255, 0.1)",
       disabled: "rgba(255, 255, 255, 0.3)",
-      disabledBackground: "rgba(255, 255, 255, 0.12)",
-      disabledOpacity: 0.38,
       focus: "rgba(255, 255, 255, 0.12)",
-      focusOpacity: 0.12,
-      activatedOpacity: 0.24,
     },
   },
+
+  // ─── Component ───
+
   tabs: {
     light: {
       activeText: "rgba(0, 0, 0, 0.87)",
-      indicator: "#1976d2",
+      indicator: brand.primaryContainer,
     },
     dark: {
-      activeText: "#E3E2E7",
-      indicator: "#E1DFFF",
+      activeText: onSurface.default,
+      indicator: brand.primaryContainer,
     },
   },
+
   input: {
     light: {
       primary: {
-        background: "#FFFFFF",
-        placeholder: "#46464F",
-        text: "#46464F",
+        background: white,
+        text: _outline.variant,
+        placeholder: _outline.variant,
       },
       secondary: {
-        background: "#FFFFFF",
+        background: white,
         text: "rgba(0, 0, 0, 0.8)",
         placeholder: "rgba(0, 0, 0, 0.45)",
       },
     },
     dark: {
       primary: {
-        background: "#FFFFFF",
-        placeholder: "#46464F",
-        text: "#46464F",
+        background: surface.containerLow,
+        text: onSurface.default,
+        placeholder: _outline.default,
       },
       secondary: {
         background: "rgba(255, 255, 255, 0.08)",
@@ -248,28 +239,29 @@ export const colorTokens = {
       },
     },
   },
+
   button: {
     light: {
       primary: {
-        background: "#EEF0FF",
-        text: "#2724B8",
+        background: brand.primaryFixed,
+        text: brand.onPrimaryContainer,
       },
       secondary: {
-        background: "#F3E5F5",
-        text: "#E3E2E7",
+        background: brand.secondaryFixed,
+        text: brand.secondaryContainer,
       },
     },
     dark: {
       primary: {
-        background: "#E1DFFF",
-        text: "#292B5E",
+        background: brand.primaryContainer,
+        text: brand.onPrimaryContainer,
       },
       secondary: {
-        background: "#343439",
-        text: "#E3E2E7",
+        background: surface.containerHighest,
+        text: onSurface.default,
       },
     },
   },
-};
+} as const;
 
 export type ColorTokens = typeof colorTokens;

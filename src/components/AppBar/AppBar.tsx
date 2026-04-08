@@ -17,7 +17,6 @@ export interface AppBarProps {
   onLoginClick?: () => void;
   onSignupClick?: () => void;
   onLogoutClick?: () => void;
-  isAuthenticated?: boolean;
   loginLabel?: string;
   signupLabel?: string;
   logoutLabel?: string;
@@ -35,7 +34,6 @@ function MyAppBar({
   onLoginClick,
   onSignupClick,
   onLogoutClick,
-  isAuthenticated = false,
   loginLabel = "Login",
   signupLabel = "Sign up",
   logoutLabel = "Logout",
@@ -103,7 +101,7 @@ function MyAppBar({
                 onClick={onLoginClick}
                 variant="text"
                 sx={(theme) => ({
-                  color: (theme.palette as any).indigo?.[200] || theme.palette.primary.main,
+                  color: theme.palette.indigo?.[200] || theme.palette.primary.main,
                 })}
               />
 
@@ -114,13 +112,6 @@ function MyAppBar({
                 color="primary"
               />
             </>
-          ) : (
-            <MyButton
-              label={logoutLabel}
-              onClick={onLogoutClick}
-              variant="outlined"
-              color="primary"
-            />
           )}
         </Box>
       </Toolbar>

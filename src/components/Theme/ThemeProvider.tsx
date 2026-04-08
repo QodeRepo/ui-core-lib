@@ -245,12 +245,11 @@ const MyThemeProvider = ({
       transitions: {
         duration: {
           shortest: transitionTokens.duration.shortest,
-          shorter: transitionTokens.duration.shorter,
           short: transitionTokens.duration.short,
           standard: transitionTokens.duration.standard,
-          complex: transitionTokens.duration.complex,
-          enteringScreen: transitionTokens.duration.enteringScreen,
-          leavingScreen: transitionTokens.duration.leavingScreen,
+          complex: transitionTokens.duration.high,
+          enteringScreen: transitionTokens.duration.short,
+          leavingScreen: transitionTokens.duration.short,
         },
         easing: {
           easeInOut: transitionTokens.easing.easeInOut,

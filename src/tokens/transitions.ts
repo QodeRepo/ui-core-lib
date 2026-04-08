@@ -2,13 +2,10 @@
 export const transitionTokens = {
   // Duration (in milliseconds)
   duration: {
-    shortest: 150,
-    shorter: 200,
-    short: 250,
+    shortest: 100,
+    short: 200,
     standard: 300,
-    complex: 375,
-    enteringScreen: 225,
-    leavingScreen: 195,
+    high: 400,
   },
   
   // Easing Functions
