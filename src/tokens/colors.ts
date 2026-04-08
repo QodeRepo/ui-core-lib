@@ -42,10 +42,27 @@ const brand = {
 } as const;
 
 const status = {
-  secure:   "#4ade80",  // QAISS: status-secure
-  warning:  "#facc15",  // QAISS: status-warning
-  critical: "#ef4444",  // QAISS: status-critical
-  info:     "#22d3ee",  // QAISS: status-info
+  secure:             "#4ade80",  // QAISS: status-secure
+  secureLight:        "#86efac",
+  secureDark:         "#15803d",
+  secureContrastText: "#052e16",
+
+  critical:             "#ef4444",  // QAISS: status-critical
+  criticalLight:        "#ffb4ab",  // MD3: error
+  criticalDark:         "#93000a",  // MD3: error_container
+
+  warning:              "#facc15",  // QAISS: status-warning
+  warningLight:         "#fde047",
+  warningDark:          "#a16207",
+  warningContrastText:  "#422006",
+  warningSurface:       "#fefce8",
+  warningSurfaceAlt:    "#fef9c3",
+
+  info:              "#22d3ee",  // QAISS: status-info
+  infoLight:         "#67e8f9",
+  infoDark:          "#0e7490",
+  infoContrastText:  "#083344",
+  infoSurface:       "#cffafe",
 } as const;
 
 const white = "#ffffff";
@@ -95,33 +112,33 @@ export const colorTokens = {
 
   success: {
     main: status.secure,
-    light: "#86efac",
-    dark: "#15803d",
-    contrastText: "#052e16",
+    light: status.secureLight,
+    dark: status.secureDark,
+    contrastText: status.secureContrastText,
   },
 
   error: {
     main: status.critical,
-    light: "#ffb4ab",
-    dark: "#93000a",
+    light: status.criticalLight,
+    dark: status.criticalDark,
     contrastText: white,
   },
 
   warning: {
-    50: "#fefce8",
-    100: "#fef9c3",
+    50: status.warningSurface,
+    100: status.warningSurfaceAlt,
     main: status.warning,
-    light: "#fde047",
-    dark: "#a16207",
-    contrastText: "#422006",
+    light: status.warningLight,
+    dark: status.warningDark,
+    contrastText: status.warningContrastText,
   },
 
   info: {
-    100: "#cffafe",
+    100: status.infoSurface,
     main: status.info,
-    light: "#67e8f9",
-    dark: "#0e7490",
-    contrastText: "#083344",
+    light: status.infoLight,
+    dark: status.infoDark,
+    contrastText: status.infoContrastText,
   },
 
   // ─── Surface (MD3) ───

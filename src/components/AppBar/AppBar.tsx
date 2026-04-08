@@ -101,7 +101,7 @@ function MyAppBar({
                 onClick={onLoginClick}
                 variant="text"
                 sx={(theme) => ({
-                  color: (theme.palette as any).indigo?.[200] || theme.palette.primary.main,
+                  color: theme.palette.indigo?.[200] || theme.palette.primary.main,
                 })}
               />
 

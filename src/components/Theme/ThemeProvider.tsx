@@ -163,7 +163,7 @@ const MyThemeProvider = ({
       typography: {
         fontFamily: typographyTokens.fontFamily.primary,
         fontSize: typographyTokens.fontSize.base,
-        fontWeightLight: 300,
+        fontWeightLight: typographyTokens.fontWeight.light,
         fontWeightRegular: typographyTokens.fontWeight.regular,
         fontWeightMedium: typographyTokens.fontWeight.medium,
         fontWeightBold: typographyTokens.fontWeight.bold,
@@ -245,12 +245,11 @@ const MyThemeProvider = ({
       transitions: {
         duration: {
           shortest: transitionTokens.duration.shortest,
-          shorter: transitionTokens.duration.short,
-          short: 250,
+          short: transitionTokens.duration.short,
           standard: transitionTokens.duration.standard,
           complex: transitionTokens.duration.high,
-          enteringScreen: 225,
-          leavingScreen: 195,
+          enteringScreen: transitionTokens.duration.short,
+          leavingScreen: transitionTokens.duration.short,
         },
         easing: {
           easeInOut: transitionTokens.easing.easeInOut,
