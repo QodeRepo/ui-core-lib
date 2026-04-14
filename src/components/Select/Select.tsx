@@ -57,7 +57,7 @@ const MySelect = ({
   size = "medium",
   multiple,
   placeholder,
-  colorVariant = "primary",
+  colorVariant,
   labelPlacement = "outside",
   formControlProps,
   selectProps,
@@ -67,7 +67,9 @@ const MySelect = ({
   const generatedId = useId();
   const selectId = selectProps?.id ?? generatedId;
   const labelId = `${selectId}-label`;
-  const selectPalette = theme.palette.input[colorVariant];
+  const resolvedColorVariant =
+    colorVariant ?? (theme.palette.mode === "dark" ? "primary" : "primary");
+  const selectPalette = theme.palette.input[resolvedColorVariant];
 
   const handleChange: NonNullable<SelectProps["onChange"]> = (event) => {
     onChange(event.target.value as string);
