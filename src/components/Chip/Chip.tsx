@@ -27,16 +27,17 @@ const MyChip = ({
   ...props
 }: MyChipProps) => {
   const isNonDefaultTone = tone !== "default";
+  const toneMinHeight = spacingTokens.scale[4];
 
   const getToneStyles = () => {
     switch (tone) {
       case "brand":
         return {
           mb: spacingTokens.scale[2],
-          minHeight: spacingTokens.scale[4],
+          minHeight: toneMinHeight,
           px: spacingTokens.scale[1],
           py: spacingTokens.scale[1.5],
-          borderRadius: 999,
+          borderRadius: borderTokens.radius.full,
           borderColor: alpha(colorTokens.primary.main, 0.2),
           bgcolor: alpha(colorTokens.primary.main, 0.1),
           color: colorTokens.primary.main,
@@ -57,10 +58,10 @@ const MyChip = ({
         };
       case "subtle":
         return {
-          minHeight: spacingTokens.scale[5],
+          minHeight: toneMinHeight,
           px: spacingTokens.scale[2],
           py: spacingTokens.scale[2],
-          borderRadius: 999,
+          borderRadius: borderTokens.radius.full,
           borderColor: alpha(colorTokens.common.white, 0.12),
           bgcolor: alpha(colorTokens.common.white, 0.04),
           color: colorTokens.badge.subtleText,
@@ -80,7 +81,7 @@ const MyChip = ({
         };
       case "critical":
         return {
-          minHeight: spacingTokens.scale[3],
+          minHeight: toneMinHeight,
           px: spacingTokens.scale[2],
           py: spacingTokens.scale[2],
           borderRadius: borderTokens.radius.xs,
@@ -98,6 +99,7 @@ const MyChip = ({
         };
       case "verified":
         return {
+          minHeight: toneMinHeight,
           px: spacingTokens.scale[1],
           py: spacingTokens.scale[1],
           borderRadius: borderTokens.radius.xs,
@@ -128,7 +130,7 @@ const MyChip = ({
         };
       case "outline":
         return {
-          minHeight: spacingTokens.scale[3],
+          minHeight: toneMinHeight,
           px: spacingTokens.scale[2],
           py: spacingTokens.scale[2],
           borderRadius: borderTokens.radius.xs,
@@ -168,7 +170,7 @@ const MyChip = ({
           px:
             tone === "default"
               ? spacingTokens.scale[1.5]
-          : spacingTokens.scale[1],
+              : spacingTokens.scale[1],
           py: spacingTokens.scale[0.5],
         },
         alignItems: "center",

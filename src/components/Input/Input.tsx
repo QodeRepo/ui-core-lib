@@ -67,8 +67,7 @@ const MyInput = ({
   const theme = useTheme();
   const generatedId = useId();
   const inputId = props.id ?? generatedId;
-  const resolvedColorVariant =
-    colorVariant ?? (theme.palette.mode === "dark" ? "secondary" : "primary");
+  const resolvedColorVariant = colorVariant ?? "primary";
   const inputPalette = theme.palette.input[resolvedColorVariant];
   const outsideLabelColor =
     theme.palette.mode === "light" ? "text.primary" : "text.secondary";
