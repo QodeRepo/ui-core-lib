@@ -26,25 +26,13 @@ const MyChip = ({
   tone = "default",
   ...props
 }: MyChipProps) => {
+  const isNonDefaultTone = tone !== "default";
+
   const chipProps = {
     label,
-    variant:
-      tone === "brand" ||
-      tone === "subtle" ||
-      tone === "outline" ||
-      tone === "critical" ||
-      tone === "verified"
-        ? "outlined"
-        : variant,
+    variant: isNonDefaultTone ? "outlined" : variant,
     color,
-    size:
-      tone === "brand" ||
-      tone === "subtle" ||
-      tone === "outline" ||
-      tone === "critical" ||
-      tone === "verified"
-        ? "small"
-        : size,
+    size: isNonDefaultTone ? "small" : size,
     clickable: clickable ?? Boolean(onClick),
     onClick: (clickable ?? Boolean(onClick)) ? onClick : undefined,
     onDelete,
@@ -110,23 +98,23 @@ const MyChip = ({
               bgcolor: colorTokens.badge.critical.background,
               color: colorTokens.badge.critical.text,
               boxShadow: "none",
-              "& .MuiChip-label": {
-                lineHeight: 1,
-                fontSize: typographyTokens.fontSize.sm,
-                fontWeight: typographyTokens.fontWeight.bold,
-                letterSpacing: typographyTokens.letterSpacing.wide,
-                textTransform: "uppercase",
-                },
-              }
+          "& .MuiChip-label": {
+            lineHeight: 1,
+            fontSize: typographyTokens.fontSize.sm,
+            fontWeight: typographyTokens.fontWeight.bold,
+            letterSpacing: typographyTokens.letterSpacing.wide,
+            textTransform: "uppercase",
+          },
+        }
           : tone === "verified"
             ? {
-              px: spacingTokens.scale[1],
-              py: spacingTokens.scale[1],
-              borderRadius: borderTokens.radius.xs,
-              borderColor: "currentColor",
-              bgcolor: "transparent",
-              color: "text.primary",
-              boxShadow: "none",
+                px: spacingTokens.scale[1],
+                py: spacingTokens.scale[1],
+                borderRadius: borderTokens.radius.xs,
+                borderColor: "currentColor",
+                bgcolor: "transparent",
+                color: "text.primary",
+                boxShadow: "none",
                 "& .MuiChip-label": {
                   lineHeight: 1,
                   fontSize: typographyTokens.fontSize.sm,
@@ -148,25 +136,25 @@ const MyChip = ({
                   mr: spacingTokens.scale[0.5],
                 },
               }
-          : tone === "outline"
-            ? {
-                minHeight: spacingTokens.scale[3],
-                px: spacingTokens.scale[2],
-                py: spacingTokens.scale[2],
-                borderRadius: borderTokens.radius.xs,
-                borderColor: "currentColor",
-                bgcolor: "transparent",
-                color: "inherit",
-                boxShadow: "none",
-                "& .MuiChip-label": {
-                  lineHeight: 1,
-                  fontSize: typographyTokens.fontSize.sm,
-                  fontWeight: typographyTokens.fontWeight.bold,
-                  letterSpacing: typographyTokens.letterSpacing.wide,
-                  textTransform: "uppercase",
-                },
-              }
-        : {};
+            : tone === "outline"
+              ? {
+                  minHeight: spacingTokens.scale[3],
+                  px: spacingTokens.scale[2],
+                  py: spacingTokens.scale[2],
+                  borderRadius: borderTokens.radius.xs,
+                  borderColor: "currentColor",
+                  bgcolor: "transparent",
+                  color: "inherit",
+                  boxShadow: "none",
+                  "& .MuiChip-label": {
+                    lineHeight: 1,
+                    fontSize: typographyTokens.fontSize.sm,
+                    fontWeight: typographyTokens.fontWeight.bold,
+                    letterSpacing: typographyTokens.letterSpacing.wide,
+                    textTransform: "uppercase",
+                  },
+                }
+              : {};
 
   return (
     <MuiChip

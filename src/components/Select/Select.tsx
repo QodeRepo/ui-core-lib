@@ -68,7 +68,7 @@ const MySelect = ({
   const selectId = selectProps?.id ?? generatedId;
   const labelId = `${selectId}-label`;
   const resolvedColorVariant =
-    colorVariant ?? (theme.palette.mode === "dark" ? "primary" : "primary");
+    colorVariant ?? (theme.palette.mode === "dark" ? "secondary" : "primary");
   const selectPalette = theme.palette.input[resolvedColorVariant];
 
   const handleChange: NonNullable<SelectProps["onChange"]> = (event) => {
