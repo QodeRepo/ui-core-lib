@@ -7,6 +7,7 @@ import {
   Button,
 } from '@mui/material';
 import type { DialogProps, ButtonProps, SxProps, Theme } from '@mui/material';
+import type { ReactNode } from 'react';
 
 export type DialogButton = {
   label: string;
@@ -21,6 +22,7 @@ export type MyDialogProps = {
   open: boolean;
   title: string;
   description?: string | React.ReactNode;
+  children?: ReactNode;
   onClose: () => void;
   confirmButton?: DialogButton;
   cancelButton?: DialogButton;
@@ -40,6 +42,7 @@ const MyDialog = ({
   open,
   title,
   description,
+  children,
   onClose,
   confirmButton,
   cancelButton,
@@ -56,7 +59,7 @@ const MyDialog = ({
   sx,
 }: MyDialogProps) => {
   const handleClose = (
-    _event: {},
+    _event: object,
     reason: 'backdropClick' | 'escapeKeyDown'
   ) => {
     if (disableBackdropClick && reason === 'backdropClick') {
@@ -84,6 +87,9 @@ const MyDialog = ({
             description
           )}
         </DialogContent>
+      )}
+      {children && (
+        <DialogContent sx={contentSx}>{children}</DialogContent>
       )}
       {(showActions === undefined || showActions) && (
         <DialogActions sx={actionsSx}>
