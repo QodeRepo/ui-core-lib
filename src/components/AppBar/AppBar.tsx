@@ -4,6 +4,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import MyButton from "../Button";
+import { typographyTokens } from "../../tokens";
 
 export interface AppBarProps {
   logo?: React.ReactNode;
@@ -73,7 +74,10 @@ function MyAppBar({
               label={item.label}
               onClick={item.onClick}
               variant="text"
-              sx={{ color: "text.secondary" }}
+              sx={{
+                color: "text.secondary",
+                fontSize: typographyTokens.fontSize.base,
+              }}
             />
           ))}
         </Box>

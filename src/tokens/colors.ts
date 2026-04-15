@@ -41,6 +41,34 @@ const brand = {
   onSecondaryFixed:     "#181b26",  // MD3: on_secondary_fixed
 } as const;
 
+const form = {
+  muted: "#6b7280",
+} as const;
+
+const badge = {
+  hero: {
+    background: "rgba(225, 223, 255, 0.1)",
+    border: "rgba(225, 223, 255, 0.2)",
+    icon: brand.primary,
+  },
+  critical: {
+    background: "rgba(255, 180, 171, 0.1)",
+    border: "rgba(255, 180, 171, 0.2)",
+    text: "#ffb4ab",
+  },
+  targetList: {
+    background: "rgba(192, 193, 255, 0.2)",
+    text: brand.primaryContainer,
+  },
+  stepLabel: brand.primary,
+  subtleText: onSurface.variant,
+} as const;
+
+const header = {
+  apiTargets: "rgba(34, 37, 49, 0.6)",
+  apiTargetsSubtitle: "#a8aab9",
+} as const;
+
 const status = {
   secure:             "#4ade80",  // QAISS: status-secure
   secureLight:        "#86efac",
@@ -228,14 +256,14 @@ export const colorTokens = {
     },
     dark: {
       primary: {
-        background: surface.containerLow,
-        text: onSurface.default,
-        placeholder: _outline.default,
+        background: surface.containerHighest,
+        text: white,
+        placeholder: form.muted,
       },
       secondary: {
-        background: "rgba(255, 255, 255, 0.08)",
-        text: "rgba(255, 255, 255, 0.8)",
-        placeholder: "rgba(255, 255, 255, 0.45)",
+        background: white,
+        text: _outline.variant,
+        placeholder: _outline.variant,
       },
     },
   },
@@ -262,6 +290,9 @@ export const colorTokens = {
       },
     },
   },
+
+  badge,
+  header,
 } as const;
 
 export type ColorTokens = typeof colorTokens;

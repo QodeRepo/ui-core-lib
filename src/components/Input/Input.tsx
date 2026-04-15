@@ -60,14 +60,15 @@ const MyInput = ({
   startAdornment,
   endAdornment,
   labelPlacement = "outside",
-  colorVariant = "primary",
+  colorVariant,
   sx,
   ...props
 }: MyInputProps) => {
   const theme = useTheme();
   const generatedId = useId();
   const inputId = props.id ?? generatedId;
-  const inputPalette = theme.palette.input[colorVariant];
+  const resolvedColorVariant = colorVariant ?? "primary";
+  const inputPalette = theme.palette.input[resolvedColorVariant];
   const outsideLabelColor =
     theme.palette.mode === "light" ? "text.primary" : "text.secondary";
 
