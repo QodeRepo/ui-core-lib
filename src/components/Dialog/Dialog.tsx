@@ -5,6 +5,7 @@ import {
   DialogContentText,
   DialogActions,
   Button,
+  Box,
 } from '@mui/material';
 import type { DialogProps, ButtonProps, SxProps, Theme } from '@mui/material';
 import type { ReactNode } from 'react';
@@ -59,7 +60,7 @@ const MyDialog = ({
   sx,
 }: MyDialogProps) => {
   const handleClose = (
-    _event: object,
+    _event: unknown,
     reason: 'backdropClick' | 'escapeKeyDown'
   ) => {
     if (disableBackdropClick && reason === 'backdropClick') {
@@ -67,6 +68,9 @@ const MyDialog = ({
     }
     onClose();
   };
+
+  const hasDescription = description !== undefined && description !== null;
+  const hasChildren = children !== undefined && children !== null;
 
   return (
     <Dialog
@@ -79,17 +83,18 @@ const MyDialog = ({
       {...dialogProps}
     >
       <DialogTitle sx={titleSx}>{title}</DialogTitle>
-      {description && (
+      {(hasDescription || hasChildren) && (
         <DialogContent sx={contentSx}>
-          {typeof description === 'string' ? (
-            <DialogContentText>{description}</DialogContentText>
-          ) : (
-            description
+          {hasDescription && (
+            typeof description === 'string' ? (
+              <DialogContentText>{description}</DialogContentText>
+            ) : (
+              description
+            )
           )}
+          {hasDescription && hasChildren && <Box sx={{ mt: 2 }} />}
+          {hasChildren && children}
         </DialogContent>
-      )}
-      {children && (
-        <DialogContent sx={contentSx}>{children}</DialogContent>
       )}
       {(showActions === undefined || showActions) && (
         <DialogActions sx={actionsSx}>
