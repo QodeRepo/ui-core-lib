@@ -1,4 +1,5 @@
 import {
+  Box,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -21,7 +22,7 @@ export type DialogButton = {
 export type MyDialogProps = {
   open: boolean;
   title: string;
-  description?: string | React.ReactNode;
+  description?: string | ReactNode;
   children?: ReactNode;
   onClose: () => void;
   confirmButton?: DialogButton;
@@ -59,7 +60,7 @@ const MyDialog = ({
   sx,
 }: MyDialogProps) => {
   const handleClose = (
-    _event: {},
+    _event: unknown,
     reason: 'backdropClick' | 'escapeKeyDown'
   ) => {
     if (disableBackdropClick && reason === 'backdropClick') {
@@ -88,7 +89,7 @@ const MyDialog = ({
               description
             )
           )}
-          {description && children ? <div style={{ height: 16 }} /> : null}
+          {description && children && <Box mt={2} />}
           {children}
         </DialogContent>
       )}
