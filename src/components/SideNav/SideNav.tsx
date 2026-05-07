@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import {
   Box,
   Drawer,
@@ -23,7 +23,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 
 export type NavItem = {
   label: string;
-  icon: React.ReactNode;
+  icon: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
 };
@@ -33,7 +33,7 @@ export type MySideNavProps = {
   title: string;
   items: NavItem[];
   anchor?: "left" | "right" | "top" | "bottom";
-  menuIcon?: React.ReactNode;
+  menuIcon?: ReactNode;
   defaultActive?: string;
   activeItem?: string;
   responsive?: boolean;
@@ -49,6 +49,196 @@ export type MySideNavProps = {
   headerSx?: SxProps<Theme>;
   listSx?: SxProps<Theme>;
 };
+
+type SideNavDrawerContentProps = {
+  title: string;
+  logoText: string;
+  items: NavItem[];
+  selectedLabel: string;
+  closeOnSelect: boolean;
+  responsive: boolean;
+  isDesktop: boolean;
+  showDivider: boolean;
+  headerTextColor?: string;
+  headerBgColor?: string;
+  headerSx?: SxProps<Theme>;
+  listSx?: SxProps<Theme>;
+  iconButtonProps?: IconButtonProps;
+  setResponsiveOpen: (open: boolean) => void;
+  setActive: (label: string) => void;
+};
+
+function SideNavDrawerContent({
+  title,
+  logoText,
+  items,
+  selectedLabel,
+  closeOnSelect,
+  responsive,
+  isDesktop,
+  showDivider,
+  headerTextColor,
+  headerBgColor,
+  headerSx,
+  listSx,
+  iconButtonProps,
+  setResponsiveOpen,
+  setActive,
+}: SideNavDrawerContentProps) {
+  const renderItems = () =>
+    items.map((item) => {
+      const selected = selectedLabel === item.label;
+
+      return (
+        <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
+          <ListItemButton
+            selected={selected}
+            disabled={item.disabled}
+            onClick={() => {
+              setActive(item.label);
+              item.onClick?.();
+              if (closeOnSelect) {
+                setResponsiveOpen(false);
+              }
+            }}
+            sx={(theme) => ({
+              minHeight: 40,
+              px: 1.25,
+              borderRadius: "8px",
+              color: selected
+                ? theme.palette.text.primary
+                : theme.palette.text.secondary,
+              "&:hover": {
+                bgcolor: theme.palette.action.hover,
+              },
+              "&.Mui-selected": {
+                bgcolor: theme.palette.action.selected,
+                color: theme.palette.indigo[200],
+              },
+              "&.Mui-selected:hover": {
+                bgcolor: theme.palette.action.selected,
+              },
+            })}
+          >
+            <ListItemIcon
+              sx={(theme) => ({
+                minWidth: 32,
+                color: selected
+                  ? theme.palette.text.primary
+                  : theme.palette.text.secondary,
+              })}
+            >
+              {item.icon}
+            </ListItemIcon>
+
+            <ListItemText
+              primary={item.label}
+              slotProps={{
+                primary: {
+                  sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
+                },
+              }}
+            />
+          </ListItemButton>
+        </ListItem>
+      );
+    });
+
+  return (
+    <Box
+      sx={(theme) => ({
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        bgcolor: theme.palette.background.muted,
+      })}
+      role="presentation"
+    >
+      <Box
+        sx={[
+          (theme) => ({
+            px: 2,
+            py: 2.5,
+            display: "flex",
+            alignItems: "center",
+            gap: 1.5,
+            bgcolor: headerBgColor || theme.palette.background.muted,
+            color: headerTextColor || theme.palette.text.primary,
+          }),
+          ...(headerSx ? (Array.isArray(headerSx) ? headerSx : [headerSx]) : []),
+        ]}
+      >
+        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flex: 1 }}>
+          <Box
+            sx={(theme) => ({
+              width: 24,
+              height: 24,
+              borderRadius: "6px",
+              bgcolor: theme.palette.indigo.main,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              color: theme.palette.common.white,
+              fontSize: 14,
+              fontWeight: 700,
+              flexShrink: 0,
+            })}
+          >
+            {logoText}
+          </Box>
+
+          <Typography
+            variant="subtitle1"
+            sx={(theme) => ({
+              fontWeight: 700,
+              color: headerTextColor || theme.palette.text.primary,
+              letterSpacing: "0.01em",
+            })}
+          >
+            {title}
+          </Typography>
+        </Box>
+
+        {responsive && !isDesktop ? (
+          <IconButton
+            onClick={() => setResponsiveOpen(false)}
+            aria-label="close side navigation"
+            size="small"
+            {...iconButtonProps}
+          >
+            <CloseRoundedIcon fontSize="small" />
+          </IconButton>
+        ) : null}
+      </Box>
+
+      {showDivider && (
+        <Divider
+          sx={(theme) => ({
+            borderColor: theme.palette.divider,
+          })}
+        />
+      )}
+
+      <List
+        sx={{
+          px: 1,
+          py: 1.5,
+          ...listSx,
+        }}
+      >
+        {renderItems()}
+      </List>
+
+      <Box sx={{ mt: "auto" }}>
+        <Divider
+          sx={(theme) => ({
+            borderColor: theme.palette.divider,
+          })}
+        />
+      </Box>
+    </Box>
+  );
+}
 
 const MySideNav = ({
   width,
@@ -88,64 +278,6 @@ const MySideNav = ({
       boxShadow: "none",
     }),
   ];
-  const headerStyles: SxProps<Theme> = [
-    (theme) => ({
-      px: 2,
-      py: 2.5,
-      display: "flex",
-      alignItems: "center",
-      gap: 1.5,
-      bgcolor: headerBgColor || theme.palette.background.muted,
-      color: headerTextColor || theme.palette.text.primary,
-    }),
-    ...(headerSx ? (Array.isArray(headerSx) ? headerSx : [headerSx]) : []),
-  ];
-
-  const headerContent = (
-    <>
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-        <Box
-          sx={(theme) => ({
-            width: 24,
-            height: 24,
-            borderRadius: "6px",
-            bgcolor: theme.palette.indigo.main,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            color: theme.palette.common.white,
-            fontSize: 14,
-            fontWeight: 700,
-            flexShrink: 0,
-          })}
-        >
-          {logoText}
-        </Box>
-
-        <Typography
-          variant="subtitle1"
-          sx={(theme) => ({
-            fontWeight: 700,
-            color: headerTextColor || theme.palette.text.primary,
-            letterSpacing: "0.01em",
-          })}
-        >
-          {title}
-        </Typography>
-      </Box>
-
-      {responsive && !isDesktop ? (
-        <IconButton
-          onClick={() => setResponsiveOpen(false)}
-          aria-label="close side navigation"
-          size="small"
-          {...iconButtonProps}
-        >
-          <CloseRoundedIcon fontSize="small" />
-        </IconButton>
-      ) : null}
-    </>
-  );
 
   return (
     <>
@@ -166,216 +298,41 @@ const MySideNav = ({
         </IconButton>
       ) : null}
 
-      {responsive ? (
-        <>
-          <Drawer
-            anchor={anchor}
-            variant={isDesktop ? "persistent" : "temporary"}
-            open={isDesktop ? true : isResponsiveOpen}
-            onClose={() => setResponsiveOpen(false)}
-            {...drawerProps}
-            slotProps={{
-              paper: { sx: paperSx },
-            }}
-          >
-            <Box
-              sx={(theme) => ({
-                height: "100%",
-                display: "flex",
-                flexDirection: "column",
-                bgcolor: theme.palette.background.muted,
-              })}
-              role="presentation"
-            >
-              <Box sx={headerStyles}>{headerContent}</Box>
+      <Drawer
+        anchor={anchor}
+        variant={responsive && isDesktop ? "persistent" : "temporary"}
+        open={responsive ? (isDesktop ? true : isResponsiveOpen) : triggerOpen}
+        onClose={() => {
+          if (responsive) {
+            setResponsiveOpen(false);
+            return;
+          }
 
-              {showDivider && (
-                <Divider
-                  sx={(theme) => ({
-                    borderColor: theme.palette.divider,
-                  })}
-                />
-              )}
-
-              <List
-                sx={{
-                  px: 1,
-                  py: 1.5,
-                  ...listSx,
-                }}
-              >
-                {items.map((item) => {
-                  const selected = selectedItem === item.label;
-
-                  return (
-                    <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
-                      <ListItemButton
-                        selected={selected}
-                        disabled={item.disabled}
-                        onClick={() => {
-                          setActive(item.label);
-                          item.onClick?.();
-                          if (!isDesktop) {
-                            setResponsiveOpen(false);
-                          }
-                        }}
-                        sx={(theme) => ({
-                          minHeight: 40,
-                          px: 1.25,
-                          borderRadius: "8px",
-                          color: selected
-                            ? theme.palette.text.primary
-                            : theme.palette.text.secondary,
-                          "&:hover": {
-                            bgcolor: theme.palette.action.hover,
-                          },
-                          "&.Mui-selected": {
-                            bgcolor: theme.palette.action.selected,
-                            color: theme.palette.indigo[200],
-                          },
-                          "&.Mui-selected:hover": {
-                            bgcolor: theme.palette.action.selected,
-                          },
-                        })}
-                      >
-                        <ListItemIcon
-                          sx={(theme) => ({
-                            minWidth: 32,
-                            color: selected
-                              ? theme.palette.text.primary
-                              : theme.palette.text.secondary,
-                          })}
-                        >
-                          {item.icon}
-                        </ListItemIcon>
-
-                        <ListItemText
-                          primary={item.label}
-                          slotProps={{
-                            primary: {
-                              sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
-                            },
-                          }}
-                        />
-                      </ListItemButton>
-                    </ListItem>
-                  );
-                })}
-              </List>
-
-              <Box sx={{ mt: "auto" }}>
-                <Divider
-                  sx={(theme) => ({
-                    borderColor: theme.palette.divider,
-                  })}
-                />
-              </Box>
-            </Box>
-          </Drawer>
-        </>
-      ) : (
-        <Drawer
-          anchor={anchor}
-          open={triggerOpen}
-          onClose={() => setTriggerOpen(false)}
-          {...drawerProps}
-          slotProps={{
-            paper: { sx: paperSx },
-          }}
-        >
-          <Box
-            sx={(theme) => ({
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              bgcolor: theme.palette.background.muted,
-            })}
-            role="presentation"
-          >
-            <Box sx={headerStyles}>{headerContent}</Box>
-
-            {showDivider && (
-              <Divider
-                sx={(theme) => ({
-                  borderColor: theme.palette.divider,
-                })}
-              />
-            )}
-
-            <List
-              sx={{
-                px: 1,
-                py: 1.5,
-                ...listSx,
-              }}
-            >
-              {items.map((item) => {
-                const selected = active === item.label;
-
-                return (
-                  <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
-                    <ListItemButton
-                      selected={selected}
-                      disabled={item.disabled}
-                      onClick={() => {
-                        setActive(item.label);
-                        item.onClick?.();
-                        setTriggerOpen(false);
-                      }}
-                      sx={(theme) => ({
-                        minHeight: 40,
-                        px: 1.25,
-                        borderRadius: "8px",
-                        color: selected
-                          ? theme.palette.text.primary
-                          : theme.palette.text.secondary,
-                        "&:hover": {
-                          bgcolor: theme.palette.action.hover,
-                        },
-                        "&.Mui-selected": {
-                          bgcolor: theme.palette.action.selected,
-                          color: theme.palette.indigo[200],
-                        },
-                        "&.Mui-selected:hover": {
-                          bgcolor: theme.palette.action.selected,
-                        },
-                      })}
-                    >
-                      <ListItemIcon
-                        sx={(theme) => ({
-                          minWidth: 32,
-                          color: selected
-                            ? theme.palette.text.primary
-                            : theme.palette.text.secondary,
-                        })}
-                      >
-                        {item.icon}
-                      </ListItemIcon>
-
-                      <ListItemText
-                        primary={item.label}
-                        slotProps={{
-                          primary: {
-                            sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
-                          },
-                        }}
-                      />
-                    </ListItemButton>
-                  </ListItem>
-                );
-              })}
-            </List>
-
-            <Box sx={{ mt: "auto" }}>
-              <Divider
-                sx={(theme) => ({
-                  borderColor: theme.palette.divider,
-                })}
-              />
-            </Box>
-          </Box>
-        </Drawer>
-      )}
+          setTriggerOpen(false);
+        }}
+        {...drawerProps}
+        slotProps={{
+          paper: { sx: paperSx },
+        }}
+      >
+        <SideNavDrawerContent
+          title={title}
+          logoText={logoText}
+          items={items}
+          selectedLabel={responsive ? selectedItem : active}
+          closeOnSelect={!responsive || !isDesktop}
+          responsive={responsive}
+          isDesktop={isDesktop}
+          showDivider={showDivider}
+          headerTextColor={headerTextColor}
+          headerBgColor={headerBgColor}
+          headerSx={headerSx}
+          listSx={listSx}
+          iconButtonProps={iconButtonProps}
+          setResponsiveOpen={setResponsiveOpen}
+          setActive={setActive}
+        />
+      </Drawer>
     </>
   );
 };

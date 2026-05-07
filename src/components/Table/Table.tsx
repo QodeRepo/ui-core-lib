@@ -108,29 +108,33 @@ const MyTable = ({
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={columns.length}>Loading...</TableCell>
+              <TableCell colSpan={columns.length} align="center">
+                Loading...
+              </TableCell>
             </TableRow>
           ) : rows.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={columns.length}>{emptyMessage}</TableCell>
+              <TableCell colSpan={columns.length} align="center">
+                {emptyMessage}
+              </TableCell>
             </TableRow>
           ) : (
             rows.map((row) => (
               <TableRow key={row.id} hover>
-                {row.cells.map((cell, index) => {
-                  const column = columns[index];
+                {columns.map((column, index) => {
+                  const cell = row.cells[index];
 
                   return (
                     <TableCell
-                      key={`${row.id}-${column?.key ?? index}`}
-                      align={column?.align}
+                      key={`${row.id}-${column.key}`}
+                      align={column.align}
                       sx={[
                         {
                           py: 2,
                           backgroundColor: colorTokens.background.dark.section,
                           color: colorTokens.text.dark.secondary,
                           fontSize: "1rem",
-                          ...(column?.minWidth ? { minWidth: column.minWidth } : {}),
+                          ...(column.minWidth ? { minWidth: column.minWidth } : {}),
                         },
                         ...normalizeSx(bodyCellSx),
                       ]}
