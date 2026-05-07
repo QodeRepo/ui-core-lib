@@ -18,6 +18,8 @@ import type {
   Theme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 export type NavItem = {
   label: string;
@@ -33,6 +35,12 @@ export type MySideNavProps = {
   anchor?: "left" | "right" | "top" | "bottom";
   menuIcon?: React.ReactNode;
   defaultActive?: string;
+  activeItem?: string;
+  responsive?: boolean;
+  breakpoint?: string;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
+  showTrigger?: boolean;
   showDivider?: boolean;
   headerBgColor?: string;
   headerTextColor?: string;
@@ -49,6 +57,12 @@ const MySideNav = ({
   anchor = "left",
   menuIcon,
   defaultActive,
+  activeItem,
+  responsive = false,
+  breakpoint = "(min-width:1200px)",
+  open,
+  onOpenChange,
+  showTrigger = true,
   showDivider = true,
   headerBgColor,
   headerTextColor,
@@ -57,9 +71,14 @@ const MySideNav = ({
   headerSx,
   listSx,
 }: MySideNavProps) => {
-  const [open, setOpen] = useState(false);
+  const [triggerOpen, setTriggerOpen] = useState(false);
+  const [internalOpen, setInternalOpen] = useState(false);
+  const isDesktop = useMediaQuery(breakpoint);
   const [active, setActive] = useState(defaultActive || items[0]?.label || "");
   const logoText = title.trim().charAt(0).toUpperCase() || "Q";
+  const isResponsiveOpen = open ?? internalOpen;
+  const setResponsiveOpen = onOpenChange ?? setInternalOpen;
+  const selectedItem = activeItem || active;
   const paperSx: SxProps<Theme> = [
     (theme) => ({
       width,
@@ -82,146 +101,281 @@ const MySideNav = ({
     ...(headerSx ? (Array.isArray(headerSx) ? headerSx : [headerSx]) : []),
   ];
 
-  return (
+  const headerContent = (
     <>
-      <IconButton
-        onClick={() => setOpen(true)}
-        aria-label={iconButtonProps?.["aria-label"] || "open side navigation"}
-        {...iconButtonProps}
-      >
-        {menuIcon || <MenuIcon />}
-      </IconButton>
-
-      <Drawer
-        anchor={anchor}
-        open={open}
-        onClose={() => setOpen(false)}
-        {...drawerProps}
-        slotProps={{
-          paper: { sx: paperSx },
-        }}
-      >
+      <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
         <Box
           sx={(theme) => ({
-            height: "100%",
+            width: 24,
+            height: 24,
+            borderRadius: "6px",
+            bgcolor: theme.palette.indigo.main,
             display: "flex",
-            flexDirection: "column",
-            bgcolor: theme.palette.background.muted,
+            alignItems: "center",
+            justifyContent: "center",
+            color: theme.palette.common.white,
+            fontSize: 14,
+            fontWeight: 700,
+            flexShrink: 0,
           })}
-          role="presentation"
         >
-          <Box sx={headerStyles}>
-            <Box
-              sx={(theme) => ({
-                width: 24,
-                height: 24,
-                borderRadius: "6px",
-                bgcolor: theme.palette.indigo.main,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: theme.palette.common.white,
-                fontSize: 14,
-                fontWeight: 700,
-                flexShrink: 0,
-              })}
-            >
-              {logoText}
-            </Box>
+          {logoText}
+        </Box>
 
-            <Typography
-              variant="subtitle1"
-              sx={(theme) => ({
-                fontWeight: 700,
-                color: headerTextColor || theme.palette.text.primary,
-                letterSpacing: "0.01em",
-              })}
-            >
-              {title}
-            </Typography>
-          </Box>
+        <Typography
+          variant="subtitle1"
+          sx={(theme) => ({
+            fontWeight: 700,
+            color: headerTextColor || theme.palette.text.primary,
+            letterSpacing: "0.01em",
+          })}
+        >
+          {title}
+        </Typography>
+      </Box>
 
-          {showDivider && (
-            <Divider
-              sx={(theme) => ({
-                borderColor: theme.palette.divider,
-              })}
-            />
-          )}
+      {responsive && !isDesktop ? (
+        <IconButton
+          onClick={() => setResponsiveOpen(false)}
+          aria-label="close side navigation"
+          size="small"
+          {...iconButtonProps}
+        >
+          <CloseRoundedIcon fontSize="small" />
+        </IconButton>
+      ) : null}
+    </>
+  );
 
-          <List
-            sx={{
-              px: 1,
-              py: 1.5,
-              ...listSx,
+  return (
+    <>
+      {showTrigger && (!responsive || !isDesktop) ? (
+        <IconButton
+          onClick={() => {
+            if (responsive) {
+              setResponsiveOpen(true);
+              return;
+            }
+
+            setTriggerOpen(true);
+          }}
+          aria-label={iconButtonProps?.["aria-label"] || "open side navigation"}
+          {...iconButtonProps}
+        >
+          {menuIcon || <MenuIcon />}
+        </IconButton>
+      ) : null}
+
+      {responsive ? (
+        <>
+          <Drawer
+            anchor={anchor}
+            variant={isDesktop ? "persistent" : "temporary"}
+            open={isDesktop ? true : isResponsiveOpen}
+            onClose={() => setResponsiveOpen(false)}
+            {...drawerProps}
+            slotProps={{
+              paper: { sx: paperSx },
             }}
           >
-            {items.map((item) => {
-              const selected = active === item.label;
+            <Box
+              sx={(theme) => ({
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                bgcolor: theme.palette.background.muted,
+              })}
+              role="presentation"
+            >
+              <Box sx={headerStyles}>{headerContent}</Box>
 
-              return (
-                <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
-                  <ListItemButton
-                    selected={selected}
-                    disabled={item.disabled}
-                    onClick={() => {
-                      setActive(item.label);
-                      item.onClick?.();
-                      setOpen(false);
-                    }}
-                    sx={(theme) => ({
-                      minHeight: 40,
-                      px: 1.25,
-                      borderRadius: "8px",
-                      color: selected
-                        ? theme.palette.text.primary
-                        : theme.palette.text.secondary,
-                      "&:hover": {
-                        bgcolor: theme.palette.action.hover,
-                      },
-                      "&.Mui-selected": {
-                        bgcolor: theme.palette.action.selected,
-                        color: theme.palette.indigo[200],
-                      },
-                      "&.Mui-selected:hover": {
-                        bgcolor: theme.palette.action.selected,
-                      },
-                    })}
-                  >
-                    <ListItemIcon
+              {showDivider && (
+                <Divider
+                  sx={(theme) => ({
+                    borderColor: theme.palette.divider,
+                  })}
+                />
+              )}
+
+              <List
+                sx={{
+                  px: 1,
+                  py: 1.5,
+                  ...listSx,
+                }}
+              >
+                {items.map((item) => {
+                  const selected = selectedItem === item.label;
+
+                  return (
+                    <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
+                      <ListItemButton
+                        selected={selected}
+                        disabled={item.disabled}
+                        onClick={() => {
+                          setActive(item.label);
+                          item.onClick?.();
+                          if (!isDesktop) {
+                            setResponsiveOpen(false);
+                          }
+                        }}
+                        sx={(theme) => ({
+                          minHeight: 40,
+                          px: 1.25,
+                          borderRadius: "8px",
+                          color: selected
+                            ? theme.palette.text.primary
+                            : theme.palette.text.secondary,
+                          "&:hover": {
+                            bgcolor: theme.palette.action.hover,
+                          },
+                          "&.Mui-selected": {
+                            bgcolor: theme.palette.action.selected,
+                            color: theme.palette.indigo[200],
+                          },
+                          "&.Mui-selected:hover": {
+                            bgcolor: theme.palette.action.selected,
+                          },
+                        })}
+                      >
+                        <ListItemIcon
+                          sx={(theme) => ({
+                            minWidth: 32,
+                            color: selected
+                              ? theme.palette.text.primary
+                              : theme.palette.text.secondary,
+                          })}
+                        >
+                          {item.icon}
+                        </ListItemIcon>
+
+                        <ListItemText
+                          primary={item.label}
+                          slotProps={{
+                            primary: {
+                              sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
+                            },
+                          }}
+                        />
+                      </ListItemButton>
+                    </ListItem>
+                  );
+                })}
+              </List>
+
+              <Box sx={{ mt: "auto" }}>
+                <Divider
+                  sx={(theme) => ({
+                    borderColor: theme.palette.divider,
+                  })}
+                />
+              </Box>
+            </Box>
+          </Drawer>
+        </>
+      ) : (
+        <Drawer
+          anchor={anchor}
+          open={triggerOpen}
+          onClose={() => setTriggerOpen(false)}
+          {...drawerProps}
+          slotProps={{
+            paper: { sx: paperSx },
+          }}
+        >
+          <Box
+            sx={(theme) => ({
+              height: "100%",
+              display: "flex",
+              flexDirection: "column",
+              bgcolor: theme.palette.background.muted,
+            })}
+            role="presentation"
+          >
+            <Box sx={headerStyles}>{headerContent}</Box>
+
+            {showDivider && (
+              <Divider
+                sx={(theme) => ({
+                  borderColor: theme.palette.divider,
+                })}
+              />
+            )}
+
+            <List
+              sx={{
+                px: 1,
+                py: 1.5,
+                ...listSx,
+              }}
+            >
+              {items.map((item) => {
+                const selected = active === item.label;
+
+                return (
+                  <ListItem key={item.label} disablePadding sx={{ mb: 0.5 }}>
+                    <ListItemButton
+                      selected={selected}
+                      disabled={item.disabled}
+                      onClick={() => {
+                        setActive(item.label);
+                        item.onClick?.();
+                        setTriggerOpen(false);
+                      }}
                       sx={(theme) => ({
-                        minWidth: 32,
+                        minHeight: 40,
+                        px: 1.25,
+                        borderRadius: "8px",
                         color: selected
                           ? theme.palette.text.primary
                           : theme.palette.text.secondary,
+                        "&:hover": {
+                          bgcolor: theme.palette.action.hover,
+                        },
+                        "&.Mui-selected": {
+                          bgcolor: theme.palette.action.selected,
+                          color: theme.palette.indigo[200],
+                        },
+                        "&.Mui-selected:hover": {
+                          bgcolor: theme.palette.action.selected,
+                        },
                       })}
                     >
-                      {item.icon}
-                    </ListItemIcon>
+                      <ListItemIcon
+                        sx={(theme) => ({
+                          minWidth: 32,
+                          color: selected
+                            ? theme.palette.text.primary
+                            : theme.palette.text.secondary,
+                        })}
+                      >
+                        {item.icon}
+                      </ListItemIcon>
 
-                    <ListItemText
-                      primary={item.label}
-                      slotProps={{
-                        primary: {
-                          sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
-                        },
-                      }}
-                    />
-                  </ListItemButton>
-                </ListItem>
-              );
-            })}
-          </List>
-
-          <Box sx={{ mt: "auto" }}>
-            <Divider
-              sx={(theme) => ({
-                borderColor: theme.palette.divider,
+                      <ListItemText
+                        primary={item.label}
+                        slotProps={{
+                          primary: {
+                            sx: { fontSize: 14, fontWeight: selected ? 600 : 500 },
+                          },
+                        }}
+                      />
+                    </ListItemButton>
+                  </ListItem>
+                );
               })}
-            />
+            </List>
+
+            <Box sx={{ mt: "auto" }}>
+              <Divider
+                sx={(theme) => ({
+                  borderColor: theme.palette.divider,
+                })}
+              />
+            </Box>
           </Box>
-        </Box>
-      </Drawer>
+        </Drawer>
+      )}
     </>
   );
 };
