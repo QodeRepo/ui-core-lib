@@ -27,6 +27,8 @@ export * from './components/Icons';
 
 export { default as Paper } from './components/Paper';
 export type { MyPaperProps } from './components/Paper';
+export { default as Table } from './components/Table';
+export type { MyTableProps, MyTableColumn, MyTableRow } from './components/Table';
 
 // MUI Proxied Components
 export { 
