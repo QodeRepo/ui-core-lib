@@ -6,15 +6,22 @@ import {
   DialogContentText,
   DialogActions,
   Button,
-} from '@mui/material';
-import type { DialogProps, ButtonProps, SxProps, Theme } from '@mui/material';
-import type { ReactNode } from 'react';
+} from "@mui/material";
+import type { DialogProps, ButtonProps, SxProps, Theme } from "@mui/material";
+import type { ReactNode } from "react";
 
 export type DialogButton = {
   label: string;
   onClick: () => void;
-  variant?: 'text' | 'outlined' | 'contained';
-  color?: 'inherit' | 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning';
+  variant?: "text" | "outlined" | "contained";
+  color?:
+    | "inherit"
+    | "primary"
+    | "secondary"
+    | "success"
+    | "error"
+    | "info"
+    | "warning";
   disabled?: boolean;
   buttonProps?: ButtonProps;
 };
@@ -28,7 +35,7 @@ export type MyDialogProps = {
   confirmButton?: DialogButton;
   cancelButton?: DialogButton;
   additionalButtons?: DialogButton[];
-  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false;
+  maxWidth?: "xs" | "sm" | "md" | "lg" | "xl" | false;
   fullWidth?: boolean;
   fullScreen?: boolean;
   disableBackdropClick?: boolean;
@@ -36,8 +43,8 @@ export type MyDialogProps = {
   titleSx?: SxProps<Theme>;
   contentSx?: SxProps<Theme>;
   actionsSx?: SxProps<Theme>;
-  dialogProps?: Omit<DialogProps, 'open' | 'onClose'>;
-} & Pick<DialogProps, 'sx'>;
+  dialogProps?: Omit<DialogProps, "open" | "onClose">;
+} & Pick<DialogProps, "sx">;
 
 const MyDialog = ({
   open,
@@ -61,9 +68,9 @@ const MyDialog = ({
 }: MyDialogProps) => {
   const handleClose = (
     _event: unknown,
-    reason: 'backdropClick' | 'escapeKeyDown'
+    reason: "backdropClick" | "escapeKeyDown",
   ) => {
-    if (disableBackdropClick && reason === 'backdropClick') {
+    if (disableBackdropClick && reason === "backdropClick") {
       return;
     }
     onClose();
@@ -82,13 +89,12 @@ const MyDialog = ({
       <DialogTitle sx={titleSx}>{title}</DialogTitle>
       {(description || children) && (
         <DialogContent sx={contentSx}>
-          {description && (
-            typeof description === 'string' ? (
+          {description &&
+            (typeof description === "string" ? (
               <DialogContentText>{description}</DialogContentText>
             ) : (
               description
-            )
-          )}
+            ))}
           {description && children && <Box mt={2} />}
           {children}
         </DialogContent>
@@ -98,7 +104,7 @@ const MyDialog = ({
           {cancelButton && (
             <Button
               onClick={cancelButton.onClick}
-              variant={cancelButton.variant || 'outlined'}
+              variant={cancelButton.variant || "outlined"}
               color={cancelButton.color}
               disabled={cancelButton.disabled}
               {...cancelButton.buttonProps}
@@ -110,7 +116,7 @@ const MyDialog = ({
             <Button
               key={index}
               onClick={button.onClick}
-              variant={button.variant || 'text'}
+              variant={button.variant || "text"}
               color={button.color}
               disabled={button.disabled}
               {...button.buttonProps}
@@ -121,8 +127,8 @@ const MyDialog = ({
           {confirmButton && (
             <Button
               onClick={confirmButton.onClick}
-              variant={confirmButton.variant || 'contained'}
-              color={confirmButton.color || 'primary'}
+              variant={confirmButton.variant || "contained"}
+              color={confirmButton.color || "primary"}
               disabled={confirmButton.disabled}
               {...confirmButton.buttonProps}
             >
