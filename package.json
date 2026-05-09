@@ -1,7 +1,7 @@
 {
-  "name": "my-design-system",
+  "name": "@qoderepo/my-design-system",
   "private": false,
-  "version": "0.0.0",
+  "version": "1.0.1",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -11,8 +11,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "default": "./dist/index.js"
-    },
-    "./dist/style.css": "./dist/style.css"
+    }
   },
   "files": [
     "dist"
@@ -25,7 +24,7 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"
   },
-   "peerDependencies": {
+  "peerDependencies": {
     "react": ">=18.0.0",
     "react-dom": ">=18.0.0",
     "@emotion/react": ">=11.0.0",
@@ -33,7 +32,7 @@
     "@mui/material": ">=9.0.0",
     "@mui/icons-material": ">=9.0.0"
   },
- "devDependencies": {
+  "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
