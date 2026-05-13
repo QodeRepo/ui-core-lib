@@ -95,7 +95,7 @@ const MyDialog = ({
             ) : (
               description
             ))}
-          {description && children && <Box mt={2} />}
+          {description && children && <Box sx={{ mt: 2 }} />}
           {children}
         </DialogContent>
       )}
