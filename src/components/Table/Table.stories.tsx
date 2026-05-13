@@ -15,7 +15,7 @@ const rows: MyTableRow[] = [
     id: "row-1",
     cells: [
       <Box key="name" sx={{ minWidth: 0 }}>
-        <Typography sx={{ fontWeight: 700 }}>Primary Target</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>Primary Target</Typography>
         <Typography variant="caption" color="text.secondary">
           api.example.com
         </Typography>
@@ -35,7 +35,7 @@ const rows: MyTableRow[] = [
     id: "row-2",
     cells: [
       <Box key="name" sx={{ minWidth: 0 }}>
-        <Typography sx={{ fontWeight: 700 }}>Staging Target</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>Staging Target</Typography>
         <Typography variant="caption" color="text.secondary">
           staging.example.com
         </Typography>
