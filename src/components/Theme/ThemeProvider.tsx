@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useMemo } from "react";
+import { useState, useMemo } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CssBaseline } from "@mui/material";
 import type { ReactNode } from "react";
@@ -13,20 +13,7 @@ import {
   zIndexTokens,
 } from "../../tokens";
 import type { ColorTokens } from "../../tokens/colors";
-
-type ThemeMode = "light" | "dark";
-
-type ThemeContextType = {
-  mode: ThemeMode;
-  toggleTheme: () => void;
-};
-
-export const ThemeContext = createContext<ThemeContextType>({
-  mode: "light",
-  toggleTheme: () => {},
-});
-
-export const useThemeMode = () => useContext(ThemeContext);
+import { ThemeContext, type ThemeMode } from "./ThemeContext";
 
 export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];

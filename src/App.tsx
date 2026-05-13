@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import './App.css'
 import { Button, Box } from '@mui/material'
-import { styled } from "@mui/material/styles";
 import HomeIcon from '@mui/icons-material/Home';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PersonIcon from '@mui/icons-material/Person';
@@ -46,20 +45,6 @@ function App() {
     open: false,
     severity: 'success',
     message: '',
-  });
-
-  // Custom button using design tokens
-  const CustomButton = styled(Button)({
-    backgroundColor: colors.secondary.main,
-    color: colors.common.white,
-    padding: spacing.component.padding.button.medium,
-    borderRadius: borders.radius.lg,
-    boxShadow: shadows.component.button.rest,
-    transition: 'all 0.3s ease',
-    "&:hover": {
-      backgroundColor: colors.secondary.dark,
-      boxShadow: shadows.component.button.hover,
-    }
   });
 
   const showSnack = (severity: 'success' | 'error' | 'warning' | 'info', message: string) => {
@@ -304,9 +289,24 @@ function App() {
         />
       </Box>
 
-      <CustomButton onClick={() => alert('you done')} sx={{ mt: 2 }}>
+      <Button
+        onClick={() => alert('you done')}
+        sx={{
+          mt: 2,
+          backgroundColor: colors.secondary.main,
+          color: colors.common.white,
+          padding: spacing.component.padding.button.medium,
+          borderRadius: borders.radius.lg,
+          boxShadow: shadows.component.button.rest,
+          transition: 'all 0.3s ease',
+          '&:hover': {
+            backgroundColor: colors.secondary.dark,
+            boxShadow: shadows.component.button.hover,
+          },
+        }}
+      >
         Submit
-      </CustomButton>
+      </Button>
       </Box>
     </>
   )

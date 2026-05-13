@@ -1,3 +1,3 @@
 export { default as MyThemeProvider } from './ThemeProvider';
 export { default as ThemeToggle } from './ThemeToggle';
-export { useThemeMode } from './ThemeProvider';
+export { useThemeMode } from './ThemeContext';
