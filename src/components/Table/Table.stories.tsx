@@ -15,18 +15,18 @@ const rows: MyTableRow[] = [
     id: "row-1",
     cells: [
       <Box key="name" sx={{ minWidth: 0 }}>
-        <Typography fontWeight={700}>Primary Target</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>Primary Target</Typography>
         <Typography variant="caption" color="text.secondary">
           api.example.com
         </Typography>
       </Box>,
-      <Typography key="status" variant="body2" textAlign="center">
+      <Typography key="status" variant="body2" sx={{ textAlign: "center" }}>
         Active
       </Typography>,
       <Box key="type" sx={{ display: "flex", justifyContent: "center" }}>
         <Chip size="small" label="HTTP" />
       </Box>,
-      <Typography key="updated" variant="body2" textAlign="right">
+      <Typography key="updated" variant="body2" sx={{ textAlign: "right" }}>
         May 06, 2026
       </Typography>,
     ],
@@ -35,18 +35,18 @@ const rows: MyTableRow[] = [
     id: "row-2",
     cells: [
       <Box key="name" sx={{ minWidth: 0 }}>
-        <Typography fontWeight={700}>Staging Target</Typography>
+        <Typography sx={{ fontWeight: "bold" }}>Staging Target</Typography>
         <Typography variant="caption" color="text.secondary">
           staging.example.com
         </Typography>
       </Box>,
-      <Typography key="status" variant="body2" textAlign="center">
+      <Typography key="status" variant="body2" sx={{ textAlign: "center" }}>
         Warning
       </Typography>,
       <Box key="type" sx={{ display: "flex", justifyContent: "center" }}>
         <Chip size="small" label="API Key" />
       </Box>,
-      <Typography key="updated" variant="body2" textAlign="right">
+      <Typography key="updated" variant="body2" sx={{ textAlign: "right" }}>
         May 05, 2026
       </Typography>,
     ],
