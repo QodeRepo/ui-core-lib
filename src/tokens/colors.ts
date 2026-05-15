@@ -41,6 +41,35 @@ const brand = {
   onSecondaryFixed:     "#181b26",  // MD3: on_secondary_fixed
 } as const;
 
+const brandAlpha = {
+  primaryContainer3: "rgba(192, 193, 255, 0.03)",
+  primaryContainer30: "rgba(192, 193, 255, 0.3)",
+} as const;
+
+const whiteAlpha = {
+  10: "rgba(255, 255, 255, 0.1)",
+} as const;
+
+const slate = {
+  700: "#334155",
+  800_50: "rgba(30, 41, 59, 0.5)",
+} as const;
+
+const findings = {
+  critical: {
+    background: "rgba(248, 113, 113, 0.1)",
+    text: "#F87171",
+  },
+  warning: {
+    background: "rgba(251, 146, 60, 0.1)",
+    text: "#FB923C",
+  },
+  muted: {
+    background: "rgba(148, 163, 184, 0.1)",
+    text: "#94A3B8",
+  },
+} as const;
+
 const form = {
   muted: "#6b7280",
 } as const;
@@ -134,7 +163,12 @@ export const colorTokens = {
     900: surface.container,
   },
 
+  slate,
+  findings,
+
   common: { black, white },
+  brandAlpha,
+  whiteAlpha,
 
   // ─── Semantic (status) ───
 
@@ -192,6 +226,13 @@ export const colorTokens = {
       section: surface.containerLow,
       surface: surface.containerHigh,
       muted: surface.dim,
+      hero: "#020617",
+      deep100: "#0F172A",
+      attackSection: "#1E293B",
+      attackSection100: "#1E293B",
+      deep30: "rgba(15, 23, 42, 0.3)",
+      deep: "rgba(15, 23, 42, 0.5)",
+      deep60: "rgba(15, 23, 42, 0.6)",
     },
   },
 
