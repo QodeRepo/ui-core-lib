@@ -5,6 +5,7 @@ export const typographyTokens = {
     primary: '"Inter", "Helvetica", "Arial", sans-serif',
     secondary: '"Inter", "Helvetica", "Arial", sans-serif',
     mono: '"JetBrains Mono", "Fira Code", monospace',
+    cursive: 'cursive',
   },
 
   // Font Weights
@@ -27,6 +28,8 @@ export const typographyTokens = {
     '2xl': 28,
     '3xl': 32,
     '5xl': 48,
+    '6xl': 64,
+    '7xl': 80,
   },
 
   // Line Heights
