@@ -33,12 +33,21 @@ const brand = {
   primaryFixed:       "#e1e0ff",  // MD3: primary_fixed
   onPrimary:          "#292b5e",  // MD3: on_primary
   onPrimaryContainer: "#2724b8",  // QAISS: on_primary (button text)
+  cta:                "#4F46E5",  // QAISS: homepage CTA
 
   secondary:            "#c4c6d5",  // MD3: secondary
   secondaryContainer:   "#434653",  // MD3: secondary_container
   secondaryFixed:       "#e0e1f1",  // MD3: secondary_fixed
   onSecondary:          "#2d303c",  // MD3: on_secondary
   onSecondaryFixed:     "#181b26",  // MD3: on_secondary_fixed
+} as const;
+
+const attackCard = {
+  background: "#0A1022",
+} as const;
+
+const promptBlock = {
+  background: "#050914",
 } as const;
 
 const brandAlpha = {
@@ -64,6 +73,10 @@ const findings = {
     background: "rgba(251, 146, 60, 0.1)",
     text: "#FB923C",
   },
+  high: {
+    background: "rgba(138, 69, 27, 0.1)",
+    text: "#F97316",
+  },
   muted: {
     background: "rgba(148, 163, 184, 0.1)",
     text: "#94A3B8",
@@ -84,6 +97,8 @@ const badge = {
     background: "rgba(255, 180, 171, 0.1)",
     border: "rgba(255, 180, 171, 0.2)",
     text: "#ffb4ab",
+    iconBackground: "rgba(239, 68, 68, 0.08)",
+    iconBorder: "rgba(239, 68, 68, 0.32)",
   },
   targetList: {
     background: "rgba(192, 193, 255, 0.2)",
@@ -165,6 +180,10 @@ export const colorTokens = {
 
   slate,
   findings,
+  brand: {
+    cta: brand.cta,
+    expertIcon: "#4A519C",
+  },
 
   common: { black, white },
   brandAlpha,
@@ -219,7 +238,7 @@ export const colorTokens = {
       surface: white,
       muted: "#f5f5f5",
     },
-    dark: {
+  dark: {
       default: surface.default,
       paper: surface.container,
       paperElevated: surface.containerLowest,
@@ -228,7 +247,19 @@ export const colorTokens = {
       muted: surface.dim,
       hero: "#020617",
       deep100: "#0F172A",
+      deep120: "#10182B",
+      deep130: "#040819",
+      deep140: "#141B2B",
+      engineTile: "#192035",
+      expertIconBackground: "#181B49",
+      attackCard: attackCard.background,
+      attackPrompt: "#162033",
+      attackPii: "#211625",
+      promptBlock: promptBlock.background,
+      whyQaiss: "#090F20",
+      attackLeakIcon: "#221B20",
       attackSection: "#1E293B",
+      deepDivider: "#030819",
       deep30: "rgba(15, 23, 42, 0.3)",
       deep50: "rgba(15, 23, 42, 0.5)",
       deep60: "rgba(15, 23, 42, 0.6)",
@@ -244,6 +275,11 @@ export const colorTokens = {
     dark: {
       primary: onSurface.default,
       secondary: onSurface.variant,
+      muted: "#323A4B",
+      mutedLabel: "#2A3448",
+      mutedAlt: "#475569",
+      mutedSlate: "#64748B",
+      mutedSoft: "#CBD5E1",
       disabled: _outline.default,
     },
   },

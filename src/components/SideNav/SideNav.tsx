@@ -30,7 +30,7 @@ export type NavItem = {
 
 export type MySideNavProps = {
   width: number;
-  title: string;
+  title?: string;
   items: NavItem[];
   anchor?: "left" | "right" | "top" | "bottom";
   menuIcon?: ReactNode;
@@ -51,7 +51,7 @@ export type MySideNavProps = {
 };
 
 type SideNavDrawerContentProps = {
-  title: string;
+  title?: string;
   logoText: string;
   items: NavItem[];
   selectedLabel: string;
@@ -168,36 +168,40 @@ function SideNavDrawerContent({
           ...(headerSx ? (Array.isArray(headerSx) ? headerSx : [headerSx]) : []),
         ]}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flex: 1 }}>
-          <Box
-            sx={(theme) => ({
-              width: 24,
-              height: 24,
-              borderRadius: "6px",
-              bgcolor: theme.palette.indigo.main,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: theme.palette.common.white,
-              fontSize: 14,
-              fontWeight: 700,
-              flexShrink: 0,
-            })}
-          >
-            {logoText}
-          </Box>
+        {title?.trim() ? (
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flex: 1 }}>
+            <Box
+              sx={(theme) => ({
+                width: 24,
+                height: 24,
+                borderRadius: "6px",
+                bgcolor: theme.palette.indigo.main,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: theme.palette.common.white,
+                fontSize: 14,
+                fontWeight: 700,
+                flexShrink: 0,
+              })}
+            >
+              {logoText}
+            </Box>
 
-          <Typography
-            variant="subtitle1"
-            sx={(theme) => ({
-              fontWeight: 700,
-              color: headerTextColor || theme.palette.text.primary,
-              letterSpacing: "0.01em",
-            })}
-          >
-            {title}
-          </Typography>
-        </Box>
+            <Typography
+              variant="subtitle1"
+              sx={(theme) => ({
+                fontWeight: 700,
+                color: headerTextColor || theme.palette.text.primary,
+                letterSpacing: "0.01em",
+              })}
+            >
+              {title}
+            </Typography>
+          </Box>
+        ) : (
+          <Box sx={{ flex: 1 }} />
+        )}
 
         {responsive && !isDesktop ? (
           <IconButton
@@ -265,7 +269,8 @@ const MySideNav = ({
   const [internalOpen, setInternalOpen] = useState(false);
   const isDesktop = useMediaQuery(breakpoint);
   const [active, setActive] = useState(defaultActive || items[0]?.label || "");
-  const logoText = title.trim().charAt(0).toUpperCase() || "Q";
+  const trimmedTitle = title?.trim() ?? "";
+  const logoText = trimmedTitle ? trimmedTitle.charAt(0).toUpperCase() : "Q";
   const isResponsiveOpen = open ?? internalOpen;
   const setResponsiveOpen = onOpenChange ?? setInternalOpen;
   const selectedItem = activeItem || active;
