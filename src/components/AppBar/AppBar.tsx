@@ -63,9 +63,10 @@ function MyAppBar({
         <Box
           sx={{
             flex: 1,
-            display: { xs: "none", md: "flex" },
+            display: { xs: "none", sm: "flex" },
             justifyContent: "center",
-            gap: 2,
+            gap: { sm: 2 , md: 3 },
+            minWidth: 0,
           }}
         >
           {navItems.map((item) => (
@@ -76,7 +77,10 @@ function MyAppBar({
               variant="text"
               sx={{
                 color: "text.secondary",
-                fontSize: typographyTokens.fontSize.base,
+                fontSize: { xs: typographyTokens.fontSize.xs, sm: typographyTokens.fontSize.sm, md: typographyTokens.fontSize.base },
+                px: { sm: 0.5, md: 1 },
+                minWidth: 0,
+                whiteSpace: "nowrap",
               }}
             />
           ))}
