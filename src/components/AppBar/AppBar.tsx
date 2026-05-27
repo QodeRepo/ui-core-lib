@@ -77,10 +77,12 @@ function MyAppBar({
               variant="text"
               sx={{
                 color: "text.secondary",
-                fontSize: { xs: typographyTokens.fontSize.xs, sm: typographyTokens.fontSize.sm, md: typographyTokens.fontSize.base },
+                fontSize: { sm: typographyTokens.fontSize.sm, md: typographyTokens.fontSize.base },
                 px: { sm: 0.5, md: 1 },
                 minWidth: 0,
                 whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             />
           ))}
