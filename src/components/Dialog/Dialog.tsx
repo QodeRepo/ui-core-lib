@@ -28,7 +28,7 @@ export type DialogButton = {
 
 export type MyDialogProps = {
   open: boolean;
-  title: string;
+  title?: string;
   description?: string | ReactNode;
   children?: ReactNode;
   onClose: () => void;
@@ -86,7 +86,7 @@ const MyDialog = ({
       sx={sx}
       {...dialogProps}
     >
-      <DialogTitle sx={titleSx}>{title}</DialogTitle>
+      {title && <DialogTitle sx={titleSx}>{title}</DialogTitle>}
       {(description || children) && (
         <DialogContent sx={contentSx}>
           {description &&
