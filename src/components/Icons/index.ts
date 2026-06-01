@@ -1,5 +1,6 @@
 export { default as ExpandMoreIcon } from '@mui/icons-material/ExpandMore';
 export { default as CheckCircleIcon } from '@mui/icons-material/CheckCircle';
+export { default as CheckCircleOutlinedIcon } from '@mui/icons-material/CheckCircleOutlined';
 export { default as LockOutlinedIcon } from '@mui/icons-material/LockOutlined';
 export { default as BugReportOutlinedIcon } from '@mui/icons-material/BugReportOutlined';
 export { default as DnsOutlinedIcon } from '@mui/icons-material/DnsOutlined';
@@ -8,6 +9,7 @@ export { default as JavascriptOutlinedIcon } from '@mui/icons-material/Javascrip
 export { default as VpnKeyOutlinedIcon } from '@mui/icons-material/VpnKeyOutlined';
 export { default as InfoOutlinedIcon } from '@mui/icons-material/InfoOutlined';
 export { default as QuestionAnswerOutlinedIcon } from '@mui/icons-material/QuestionAnswerOutlined';
+export { default as ReplyOutlinedIcon } from '@mui/icons-material/ReplyOutlined';
 export { default as FileDownloadOutlinedIcon } from '@mui/icons-material/FileDownloadOutlined';
 export { default as ReplayIcon } from '@mui/icons-material/Replay';
 export { default as CancelIcon } from '@mui/icons-material/Cancel';
@@ -17,12 +19,15 @@ export { default as HistoryOutlinedIcon } from '@mui/icons-material/HistoryOutli
 // New Icons from Frontend
 export { default as AddRoundedIcon } from '@mui/icons-material/AddRounded';
 export { default as AssignmentTurnedInRoundedIcon } from '@mui/icons-material/AssignmentTurnedInRounded';
+export { default as AccessAlarmsIcon } from '@mui/icons-material/AccessAlarms';
+export { default as ElectricBoltIcon } from '@mui/icons-material/ElectricBolt';
 export { default as CheckCircleRoundedIcon } from '@mui/icons-material/CheckCircleRounded';
 export { default as CheckRoundedIcon } from '@mui/icons-material/CheckRounded';
 export { default as DeleteOutlinedIcon } from '@mui/icons-material/DeleteOutlined';
 export { default as EditOutlinedIcon } from '@mui/icons-material/EditOutlined';
 export { default as CloseRoundedIcon } from '@mui/icons-material/CloseRounded';
 export { default as CircleRoundedIcon } from '@mui/icons-material/CircleRounded';
+export { default as CachedIcon } from '@mui/icons-material/Cached';
 export { default as AccountBalanceWalletRoundedIcon } from '@mui/icons-material/AccountBalanceWalletRounded';
 export { default as ArrowForwardRoundedIcon } from '@mui/icons-material/ArrowForwardRounded';
 export { default as GppGoodOutlinedIcon } from '@mui/icons-material/GppGoodOutlined';
@@ -41,8 +46,10 @@ export { default as ArrowRightAltIcon } from '@mui/icons-material/ArrowRightAlt'
 export { default as HorizontalRuleIcon } from '@mui/icons-material/HorizontalRule';
 export { default as InfoIcon } from '@mui/icons-material/Info';
 export { default as SettingsOutlinedIcon } from '@mui/icons-material/SettingsOutlined';
+export { default as ScienceOutlinedIcon } from '@mui/icons-material/ScienceOutlined';
 export { default as StorageRoundedIcon } from '@mui/icons-material/StorageRounded';
 export { default as TrackChangesRoundedIcon } from '@mui/icons-material/TrackChangesRounded';
+export { default as TrendingUpIcon } from '@mui/icons-material/TrendingUp';
 export { default as VerifiedUserOutlinedIcon } from '@mui/icons-material/VerifiedUserOutlined';
 export { default as VisibilityOffOutlinedIcon } from '@mui/icons-material/VisibilityOffOutlined';
 export { default as VisibilityOutlinedIcon } from '@mui/icons-material/VisibilityOutlined';
