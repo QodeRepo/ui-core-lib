@@ -31,6 +31,7 @@ export type NavItem = {
 export type MySideNavProps = {
   width: number;
   title?: string;
+  logo?: ReactNode;
   items: NavItem[];
   anchor?: "left" | "right" | "top" | "bottom";
   menuIcon?: ReactNode;
@@ -52,6 +53,7 @@ export type MySideNavProps = {
 
 type SideNavDrawerContentProps = {
   title?: string;
+  logo?: ReactNode;
   logoText: string;
   items: NavItem[];
   selectedLabel: string;
@@ -70,6 +72,7 @@ type SideNavDrawerContentProps = {
 
 function SideNavDrawerContent({
   title,
+  logo,
   logoText,
   items,
   selectedLabel,
@@ -170,23 +173,29 @@ function SideNavDrawerContent({
       >
         {title?.trim() ? (
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.5, flex: 1 }}>
-            <Box
-              sx={(theme) => ({
-                width: 24,
-                height: 24,
-                borderRadius: "6px",
-                bgcolor: theme.palette.indigo.main,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                color: theme.palette.common.white,
-                fontSize: 14,
-                fontWeight: 700,
-                flexShrink: 0,
-              })}
-            >
-              {logoText}
-            </Box>
+            {logo ? (
+              <Box sx={{ width: 32, height: 32, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
+                {logo}
+              </Box>
+            ) : (
+              <Box
+                sx={(theme) => ({
+                  width: 24,
+                  height: 24,
+                  borderRadius: "6px",
+                  bgcolor: theme.palette.indigo.main,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: theme.palette.common.white,
+                  fontSize: 14,
+                  fontWeight: 700,
+                  flexShrink: 0,
+                })}
+              >
+                {logoText}
+              </Box>
+            )}
 
             <Typography
               variant="subtitle1"
@@ -247,6 +256,7 @@ function SideNavDrawerContent({
 const MySideNav = ({
   width,
   title,
+  logo,
   items,
   anchor = "left",
   menuIcon,
@@ -322,6 +332,7 @@ const MySideNav = ({
       >
         <SideNavDrawerContent
           title={title}
+          logo={logo}
           logoText={logoText}
           items={items}
           selectedLabel={responsive ? selectedItem : active}
