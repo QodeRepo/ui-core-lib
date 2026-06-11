@@ -8,9 +8,9 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Divider from "@mui/material/Divider";
 import MyButton from "../Button";
-import { typographyTokens } from "../../tokens";
+import { colorTokens, typographyTokens } from "../../tokens";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
-import { colorTokens } from "../../tokens";
+import { alpha } from "@mui/material";
 
 export interface AppBarProps {
   logo?: React.ReactNode;
@@ -122,13 +122,6 @@ function MyAppBar({
         >
           {isAuthenticated ? (
             <>
-              <MyButton
-                label={logoutLabel}
-                variant="contained"
-                color="error"
-                onClick={onLogoutClick}
-              />
-
               <IconButton
                 onClick={handleUserMenuOpen}
                 aria-label="open user menu"
@@ -141,6 +134,13 @@ function MyAppBar({
               >
                 <AccountCircleOutlinedIcon fontSize="small" />
               </IconButton>
+
+              <MyButton
+                label={logoutLabel}
+                variant="contained"
+                color="error"
+                onClick={onLogoutClick}
+              />
 
               <Menu
                 anchorEl={userMenuAnchorEl}
@@ -155,8 +155,20 @@ function MyAppBar({
                   horizontal: "right",
                 }}
               >
-                <MenuItem disabled sx={{ minWidth: 240, }}>
-                  <Box sx={{ display: "flex", alignItems: "center", gap: 0.75 }}>
+                <MenuItem
+                  sx={{
+                    minWidth: 240,
+                    opacity: 1,
+                    color: colorTokens.common.white,
+                    "&.Mui-disabled": {
+                      opacity: 1,
+                      color: colorTokens.common.white,
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{ display: "flex", alignItems: "center", gap: 0.75 }}
+                  >
                     <Typography
                       variant="caption"
                       sx={{
@@ -185,10 +197,13 @@ function MyAppBar({
               <MyButton
                 label={loginLabel}
                 onClick={onLoginClick}
-                variant="text"
+                variant="outlined"
                 sx={(theme) => ({
                   color:
                     theme.palette.indigo?.[200] || theme.palette.primary.main,
+                  borderColor: alpha(colorTokens.outline.default, 0.55),
+
+                  px: 2,
                 })}
               />
 
