@@ -57,3 +57,4 @@ export { default as WarningAmberIcon } from '@mui/icons-material/WarningAmber';
 export { default as WarningAmberRoundedIcon } from '@mui/icons-material/WarningAmberRounded';
 export { default as ViewModuleOutlinedIcon } from '@mui/icons-material/ViewModuleOutlined';
 export { default as GroupOutlinedIcon } from '@mui/icons-material/GroupOutlined';
+export { default as MenuBookOutlinedIcon } from '@mui/icons-material/MenuBookOutlined';
