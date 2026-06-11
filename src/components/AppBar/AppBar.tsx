@@ -156,6 +156,7 @@ function MyAppBar({
                 }}
               >
                 <MenuItem
+                  disabled
                   sx={{
                     minWidth: 240,
                     opacity: 1,
