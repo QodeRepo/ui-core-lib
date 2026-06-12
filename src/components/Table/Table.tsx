@@ -34,6 +34,8 @@ export type MyTableProps = {
   tableSx?: SxProps<Theme>;
   headerCellSx?: SxProps<Theme>;
   bodyCellSx?: SxProps<Theme>;
+  rowSx?: SxProps<Theme>;
+  onRowClick?: (row: MyTableRow) => void;
 };
 
 const MyTable = ({
@@ -47,6 +49,8 @@ const MyTable = ({
   tableSx,
   headerCellSx,
   bodyCellSx,
+  rowSx,
+  onRowClick,
 }: MyTableProps) => {
   const normalizeSx = (sx?: SxProps<Theme>) => {
     if (!sx) return [];
@@ -120,7 +124,35 @@ const MyTable = ({
             </TableRow>
           ) : (
             rows.map((row) => (
-              <TableRow key={row.id} hover>
+              <TableRow
+                key={row.id}
+                hover
+                onClick={onRowClick ? () => onRowClick(row) : undefined}
+                tabIndex={onRowClick ? 0 : undefined}
+                role={onRowClick ? "button" : undefined}
+                onKeyDown={
+                  onRowClick
+                    ? (event) => {
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          onRowClick(row);
+                        }
+                      }
+                    : undefined
+                }
+                sx={[
+                  onRowClick
+                    ? {
+                        cursor: "pointer",
+                        "&:focus-visible": {
+                          outline: `2px solid ${colorTokens.indigo[400]}`,
+                          outlineOffset: "-2px",
+                        },
+                      }
+                    : {},
+                  ...normalizeSx(rowSx),
+                ]}
+              >
                 {columns.map((column, index) => {
                   const cell = row.cells[index];
 
